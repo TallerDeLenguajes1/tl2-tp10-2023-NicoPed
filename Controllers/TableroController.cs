@@ -18,16 +18,16 @@ public class TableroController : Controller
         return View(tableros);
     }
 
-    // [HttpGet]
-    // public IActionResult CrearProducto()
-    // {   
-    //     return View(new Producto());
-    // }
+    [HttpGet]
+    public IActionResult CrearTablero()
+    {   
+        return View(new Tablero());
+    }
 
     [HttpPost]
     public IActionResult CrearTablero(Tablero tablero)
     {   
-        repository.UpdateTablero(tablero);
+        repository.CreateTablero(tablero);
         return RedirectToAction("Index");
     }
    
