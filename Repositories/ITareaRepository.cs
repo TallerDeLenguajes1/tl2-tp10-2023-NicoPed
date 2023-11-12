@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using tl2_tp09_2023_NicoPed;
+using tl2_tp10_2023_NicoPed;
 
-namespace Parcial2.Repositorios
+namespace tl2_tp10_2023_NicoPed
 {
     public interface ITareaRepository
 {

@@ -6,5 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>tl2_tp10_2023_NicoPed</RootNamespace>
   </PropertyGroup>
+<ItemGroup>
+    <None Update="db/kanban.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+  </ItemGroup>
 
 </Project>

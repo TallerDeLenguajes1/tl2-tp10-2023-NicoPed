@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Tarea>
+
+<h2>Lista De Tareas</h2>
+
+<table class="table table-green">
+    <thead>
+        <tr>
+    @* private int id_tarea;
+    private int id_tablero;
+    private string? nombre;
+    private estadoTarea estado;
+    private string? descripcion;
+    private string? color;
+    private int id_usuario_asignado; *@
+            <th>id_tarea</th>
+            <th>id_tablero</th>
+            <th>nombre</th>
+            <th>estado</th>
+            <th>descripcion</th>
+            <th>color</th>
+            <th>id_usuario_asignado</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarea in Model)
+        {
+            <tr>
+                <td>@tarea.Id_tarea</td>
+                <td>@tarea.Id_tablero</td>
+                <td>@tarea.Nombre</td>
+                <td>@tarea.Estado</td>
+                <td>@tarea.Descripcion</td>
+                <td>@tarea.Color</td>
+                <td>@tarea.Id_usuario_asignado</td>
+                @* <td>
+                    <a asp-controller="Producto" asp-action="EditarProducto" asp-route-idProducto="@producto.Id">Editar</a>
+                    <a asp-controller="Producto" asp-action="DeleteProducto" asp-route-idProducto="@producto.Id" onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>                      
+                </td> *@
+            </tr>
+        }
+    </tbody>
+</table>

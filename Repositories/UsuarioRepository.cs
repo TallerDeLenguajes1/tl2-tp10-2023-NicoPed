@@ -1,15 +1,12 @@
 
 using System.Data.SQLite;
-using tl2_tp09_2023_NicoPed;
 
-namespace Parcial2.Repositorios
+namespace tl2_tp10_2023_NicoPed
 {
     public class UsuarioRepository : IUsuarioRepository
     {
         // private string cadenaConexion = @"Data Source = DB/kanban.sqlite;Initial Catalog=Northwind;" + "Integrated Security=true";
         private string cadenaConexion = "Data Source=db/kanban.db;Cache=Shared";
-
- 
 
         public bool CreateUsuario(Usuario usuario)
         {

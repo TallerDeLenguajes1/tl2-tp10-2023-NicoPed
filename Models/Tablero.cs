@@ -1,4 +1,4 @@
-namespace tl2_tp09_2023_NicoPed;
+namespace tl2_tp10_2023_NicoPed;
 public class Tablero{
     private int id_tablero;
     private int id_usuario_propietario;

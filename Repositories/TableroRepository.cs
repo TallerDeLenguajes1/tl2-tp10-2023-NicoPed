@@ -2,9 +2,9 @@
 using System.Data.SQLite;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
-using tl2_tp09_2023_NicoPed;
+using tl2_tp10_2023_NicoPed;
 
-namespace Parcial2.Repositorios
+namespace tl2_tp10_2023_NicoPed
 {
     public class TableroRepository : ITableroRepository
     {

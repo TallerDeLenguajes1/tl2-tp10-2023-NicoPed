@@ -1,4 +1,4 @@
-namespace tl2_tp10_2023_NicoPed.Models;
+namespace tl2_tp10_2023_NicoPed;
 
 public class ErrorViewModel
 {
