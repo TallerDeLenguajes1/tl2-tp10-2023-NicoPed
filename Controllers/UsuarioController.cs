@@ -18,16 +18,16 @@ public class UsuarioController : Controller
         return View(usuarios);
     }
 
-    // [HttpGet]
-    // public IActionResult CrearProducto()
-    // {   
-    //     return View(new Producto());
-    // }
+    [HttpGet]
+    public IActionResult CrearUsuario()
+    {   
+        return View(new Usuario());
+    }
 
     [HttpPost]
     public IActionResult CrearUsuario(Usuario usuario)
     {   
-        repository.Updateusuario(usuario);
+        repository.CreateUsuario(usuario);
         return RedirectToAction("Index");
     }
    

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using tl2_tp10_2023_NicoPed.Models;
+using tl2_tp10_2023_NicoPed;
 
-namespace tl2_tp10_2023_NicoPed.Controllers;
+namespace tl2_tp10_2023_NicoPed;
 
 public class HomeController : Controller
 {

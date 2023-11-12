@@ -1,0 +1,11 @@
+
+@model Usuario
+
+<form asp-controller="Usuario" asp-action="EditarUsuario">
+    <input hidden asp-for="@Model.Id_usuario">
+    <div class="form-group">
+        <label asp-for="@Model.Nombre_de_usuario"></label>
+        <input asp-for="@Model.Nombre_de_usuario" class="form-control" />
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Enviar</button>
+</form>
