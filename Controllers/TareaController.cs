@@ -17,11 +17,15 @@ public class TareaController : Controller
         var tareas = repository.GetAllTareas();
         return View(tareas);
     }
-    
+    [HttpGet]
+    public IActionResult CrearTarea()
+    {   
+        return View(new Tarea());
+    }
     [HttpPost]
     public IActionResult CrearTarea(Tarea tarea)
     {   
-        repository.UpdateTarea(tarea);
+        repository.CreateTarea(tarea);
         return RedirectToAction("Index");
     }
    

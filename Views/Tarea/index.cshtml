@@ -37,11 +37,15 @@
                 <td>@tarea.Descripcion</td>
                 <td>@tarea.Color</td>
                 <td>@tarea.Id_usuario_asignado</td>
-                @* <td>
-                    <a asp-controller="Producto" asp-action="EditarProducto" asp-route-idProducto="@producto.Id">Editar</a>
-                    <a asp-controller="Producto" asp-action="DeleteProducto" asp-route-idProducto="@producto.Id" onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>                      
-                </td> *@
+                <td>
+                    <a asp-controller="Tarea" asp-action="EditarTarea" asp-route-idTarea="@tarea.Id_tarea">Editar</a>
+                    <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-idTarea="@tarea.Id_tarea" onclick="return confirm('¿Estas seguro que quieres eliminar el elemento?')">Eliminar</a>                      
+                </td>
             </tr>
         }
     </tbody>
 </table>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a class="btn btn-outline-primary" asp-area="" asp-controller="Tarea" asp-action="CrearTarea" >Crear Tarea</a> 
+    <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
+</div>
