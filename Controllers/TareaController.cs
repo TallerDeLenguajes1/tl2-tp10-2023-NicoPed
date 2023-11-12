@@ -17,51 +17,40 @@ public class TareaController : Controller
         var tareas = repository.GetAllTareas();
         return View(tareas);
     }
-
-    // [HttpGet]
-    // public IActionResult CrearTarea()
-    // {   
-    //     return View(new Tarea());
-    // }
-
- 
-    // [HttpPost]
-    // public IActionResult CrearTarea(Tarea Tarea)
-    // {   
-    //     Tarea.Id = Tareas.Count()+1;
-    //     Tareas.Add(Tarea);
-    //     return RedirectToAction("Index");
-    // }
-   
-    // [HttpGet]
-    // public IActionResult EditarTarea(int idTarea)
-    // {  
-    //     return View( Tareas.FirstOrDefault( Tarea => Tarea.Id == idTarea));
-    // }
-
-
-    // [HttpPost]
-    // public IActionResult EditarTarea(Tarea Tarea)
-    // {   
-        
-    //     var Tarea2 = Tareas.FirstOrDefault( Tarea => Tarea.Id == Tarea.Id);
-    //     Tarea2.Nombre = Tarea.Nombre;
-    //     Tarea2.Precio = Tarea.Precio;
-
-    //     return RedirectToAction("Index");
-    // }
-
     
-    // public IActionResult DeleteTarea(int idTarea)
-    // {  
-    //    var TareaBuscado = Tareas.FirstOrDefault( Tarea => Tarea.Id == idTarea);
-    //    Tareas.Remove(TareaBuscado);
-    //   return RedirectToAction("Index");
-    // }
+    [HttpPost]
+    public IActionResult CrearTarea(Tarea tarea)
+    {   
+        repository.UpdateTarea(tarea);
+        return RedirectToAction("Index");
+    }
+   
+   //MODIFICAR
+    [HttpGet]
+    public IActionResult EditarTarea(int idTarea)
+    {  
+        var tarea = repository.GetTareaById(idTarea);
+        return View(tarea);
+    }
 
-    // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    // public IActionResult Error()
-    // {
-    //     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    // }
+    [HttpPost]
+    public IActionResult EditarTarea(Tarea tarea)
+    {   
+        
+        repository.UpdateTarea(tarea);
+        return RedirectToAction("Index");
+    }
+
+    //ELIMINAR
+    public IActionResult DeleteTarea(int idTarea)
+    {  
+        repository.RemoveTarea(idTarea);
+        return RedirectToAction("Index");
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
 }
