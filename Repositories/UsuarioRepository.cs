@@ -42,6 +42,8 @@ namespace tl2_tp10_2023_NicoPed
                         var usuari = new Usuario();
                         usuari.Id_usuario = Convert.ToInt32(reader["id_usuario"]);
                         usuari.Nombre_de_usuario = reader["nombre_de_usuario"].ToString();
+                        usuari.Contrasenia = reader["contrasenia"].ToString();
+                        usuari.RolDeUsuario = (Rol) Convert.ToInt32(reader["rol"]);
                         usuarios.Add(usuari);
                     }
                 }
@@ -66,7 +68,9 @@ namespace tl2_tp10_2023_NicoPed
                 {
                     usuario.Id_usuario = Convert.ToInt32(reader["id_usuario"]);
                     usuario.Nombre_de_usuario = reader["nombre_de_usuario"].ToString();
-            }
+                    usuario.Contrasenia = reader["contrasenia"].ToString();
+                    usuario.RolDeUsuario = (Rol) Convert.ToInt32(reader["rol"]);
+                }
             connection.Close();
 
             return (usuario);
@@ -107,6 +111,31 @@ namespace tl2_tp10_2023_NicoPed
             }
             return true;        
         }
+    public Usuario GetUsuario(string nombre, string contrasenia)
+    {
+        Usuario usuario = new Usuario();
+        using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+        {
+            connection.Open();
+            string queryString = @"SELECT * FROM Usuario WHERE nombre_de_usuario = @nombreUsuario AND contrasenia = @contraseniaUsuario;";
+            
+            var command = new SQLiteCommand(queryString, connection);
+            command.Parameters.Add(new SQLiteParameter("@nombreUsuario", nombre));
+            command.Parameters.Add(new SQLiteParameter("@contraseniaUsuario", contrasenia));
+            using(var reader = command.ExecuteReader())
+            {
+                if(reader.Read()){
+                    usuario.Id_usuario = Convert.ToInt32(reader["id_usuario"]);
+                    usuario.Nombre_de_usuario = reader["nombre_de_usuario"].ToString();
+                    usuario.Contrasenia = reader["contrasenia"].ToString();
+                    usuario.RolDeUsuario = (Rol) Convert.ToInt32(reader["rol"]);
+                }
+            }
+            connection.Close();
+        }
+
+        return usuario;
+    }
     }
 
     // internal class SQLiteConnection

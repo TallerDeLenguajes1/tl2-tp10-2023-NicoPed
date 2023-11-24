@@ -13,5 +13,7 @@ namespace tl2_tp10_2023_NicoPed
     public bool CreateUsuario(Usuario usuario);
     public bool RemoveUsuario(int id);
     public bool Updateusuario(Usuario usuario);
-}
+    public Usuario GetUsuario(string nombreUsuario, string contraseniaUsuario);
+    
+    }
 }
