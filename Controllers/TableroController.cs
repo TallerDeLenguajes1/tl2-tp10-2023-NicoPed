@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
 using tl2_tp10_2023_NicoPed.ViewModels;
 
 namespace tl2_tp10_2023_NicoPed;
@@ -15,21 +16,26 @@ public class TableroController : Controller
 
     //FUNCION PARA VER SI ESTA LOGUEADO Y QUE TIPO ES
     private bool estaLogueado(){
-        if (HttpContext.Session !=null)
+        if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == "Administrador" || HttpContext.Session.GetString("rol") == "Operador"))
         {
             return true;
         }
         return false;
     }
     private bool isAdmin(){
-       if (HttpContext.Session.GetString("rol") == "admin")
+       if (HttpContext.Session.GetString("rol") == "Administrador")
        {
             return true;
        }
        return false;
     }
     private int obtenerId(){
-        int id = (int) HttpContext.Session.GetInt32("id"); 
+        string? ids = HttpContext.Session.GetString("id");
+        int id = 9999;
+        if (ids != null)
+        {
+            id = int.Parse(ids);
+        }
         return id;
     }
     // --------------------------------------
@@ -37,7 +43,7 @@ public class TableroController : Controller
     {
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+           return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         List<Tablero> tableros = new List<Tablero>();
         if (isAdmin())
@@ -56,7 +62,7 @@ public class TableroController : Controller
     {   
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+           return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         CrearTableroViewModel nuevoTableroVM = new CrearTableroViewModel();
         return View(nuevoTableroVM);
@@ -67,7 +73,7 @@ public class TableroController : Controller
     {   
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+           return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         Tablero newTablero = new Tablero(tablero);
         repository.CreateTablero(newTablero);
@@ -80,7 +86,7 @@ public class TableroController : Controller
     {  
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+           return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var tablero = repository.GetTableroById(idTablero);
         var tableroVM = new EditarTableroViewModel(tablero);
@@ -92,7 +98,7 @@ public class TableroController : Controller
     {   
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+           return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var tablero =  new Tablero (tableroVW);
         repository.UpdateTablero(tablero);
@@ -104,7 +110,7 @@ public class TableroController : Controller
     {  
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+           return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         repository.RemoveTablero(idTablero);
         return RedirectToAction("Index");

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
 using tl2_tp10_2023_NicoPed.ViewModels;
 namespace tl2_tp10_2023_NicoPed;
 
@@ -28,17 +29,14 @@ public class LoginController: Controller
             
             LoguearUsuario(usuarioLogueado); //SI ESTA 
 
-            if(HttpContext.Session.GetString("rol") == Rol.Administrador.ToString())
-                return RedirectToRoute(new {controller = "Usuario", action = "Index"});
-             else 
-                return RedirectToRoute(new {controller = "Tablero", action="MisTableros"});
+            return RedirectToRoute(new {controller = "Home", action="index"});
         }else{
             return RedirectToAction("Index");
         }
     }
 
     private void LoguearUsuario(Usuario usuario){
-        HttpContext.Session.SetInt32("id", usuario.Id_usuario);
+        HttpContext.Session.SetString("id", usuario.Id_usuario.ToString());
         HttpContext.Session.SetString("usuario", usuario.Nombre_de_usuario);
         HttpContext.Session.SetString("rol", usuario.RolDeUsuario.ToString());
     }

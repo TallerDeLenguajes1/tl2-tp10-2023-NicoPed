@@ -8,6 +8,11 @@ namespace tl2_tp10_2023_NicoPed.ViewModels
         private string? contrasenia;
         private Rol rolUsuario;
         private int id_usuario;
+
+        public EditarUsuarioViewModel()
+        {
+        }
+
         public EditarUsuarioViewModel(Usuario usuario)
         {
             Nombre_de_usuario = usuario.Nombre_de_usuario;
@@ -15,7 +20,7 @@ namespace tl2_tp10_2023_NicoPed.ViewModels
             RolUsuario = usuario.RolDeUsuario;
             Id_usuario = usuario.Id_usuario;
         }
-
+        
         public string? Nombre_de_usuario { get => nombre_de_usuario; set => nombre_de_usuario = value; }
         public string? Contrasenia { get => contrasenia; set => contrasenia = value; }
         public Rol RolUsuario { get => rolUsuario; set => rolUsuario = value; }

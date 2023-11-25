@@ -2,7 +2,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();//se agrega para login***
 
+builder.Services.AddSession(options =>//se agrega para login***
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(500000);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +24,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();//se agrega para login***
 app.UseAuthorization();
 
 app.MapControllerRoute(

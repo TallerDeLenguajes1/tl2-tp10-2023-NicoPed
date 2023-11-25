@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_NicoPed.ViewModels;
+using Microsoft.AspNetCore.Session;
 
 namespace tl2_tp10_2023_NicoPed;
 
@@ -13,14 +14,15 @@ public class UsuarioController : Controller
         _logger = logger;
     }
     private bool estaLogueado(){
-        if (HttpContext.Session !=null)
+        if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == "Administrador" || HttpContext.Session.GetString("rol") == "Operador"))
         {
             return true;
         }
         return false;
     }
     private bool isAdmin(){
-       if (HttpContext.Session.GetString("rol") == "admin")
+        string? rol = HttpContext.Session.GetString("rol");
+       if (rol == "Administrador")
        {
             return true;
        }
@@ -30,7 +32,7 @@ public class UsuarioController : Controller
     {
         if (!estaLogueado() || !isAdmin())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var usuarios = repository.GetAllUsuarios(); 
         var usuariosVM = new ListarUsuarioViewModel(usuarios);
@@ -42,7 +44,7 @@ public class UsuarioController : Controller
     {   
         if (!estaLogueado() || !isAdmin())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
 
         return View(new CrearUsuarioViewModel());
@@ -53,7 +55,7 @@ public class UsuarioController : Controller
     {   
         if (!estaLogueado() || !isAdmin())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var newUsuario = new Usuario(usuario);
         repository.CreateUsuario(newUsuario);
@@ -66,10 +68,11 @@ public class UsuarioController : Controller
     {  
         if (!estaLogueado() || !isAdmin())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var usuario = repository.GetUsuarioById(idUsuario);
-        return View(usuario);
+        var usuariosVM = new EditarUsuarioViewModel(usuario);
+        return View(usuariosVM);
     }
 
     [HttpPost]
@@ -77,7 +80,7 @@ public class UsuarioController : Controller
     {   
         if (!estaLogueado() || !isAdmin())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var usuarioActualizado = new Usuario(usuario);
         repository.Updateusuario(usuarioActualizado);
@@ -89,7 +92,7 @@ public class UsuarioController : Controller
     {  
         if (!estaLogueado() || !isAdmin())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }        
         repository.RemoveUsuario(idUsuario);
         return RedirectToAction("Index");

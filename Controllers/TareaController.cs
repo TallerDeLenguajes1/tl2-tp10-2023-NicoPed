@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_NicoPed.ViewModels;
+using Microsoft.AspNetCore.Session;
 
 namespace tl2_tp10_2023_NicoPed;
 
@@ -14,14 +15,14 @@ public class TareaController : Controller
     }
 
     private bool estaLogueado(){
-        if (HttpContext.Session !=null)
+        if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == "Administrador" || HttpContext.Session.GetString("rol") == "Operador"))
         {
             return true;
         }
         return false;
     }
     private bool isAdmin(){
-       if (HttpContext.Session.GetString("rol") == "admin")
+       if (HttpContext.Session.GetString("rol") == "Administrador")
        {
             return true;
        }
@@ -35,7 +36,7 @@ public class TareaController : Controller
     {
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         List<Tarea> tareas= new List<Tarea>();
         if (isAdmin())
@@ -54,7 +55,7 @@ public class TareaController : Controller
     {   
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
 
         return View(new CrearTareaViewModel());
@@ -65,7 +66,7 @@ public class TareaController : Controller
     {   
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         Tarea newTarea = new Tarea(tarea);
         repository.CreateTarea(newTarea);
@@ -78,7 +79,7 @@ public class TareaController : Controller
     {  
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var tarea = repository.GetTareaById(idTarea);
         var tareasVM = new EditarTareaViewModel(tarea);
@@ -90,7 +91,7 @@ public class TareaController : Controller
     {   
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         var tareaActualizada = new Tarea(tarea);
         repository.UpdateTarea(tareaActualizada);
@@ -102,7 +103,7 @@ public class TareaController : Controller
     {  
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Login", action = "Index" });
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         repository.RemoveTarea(idTarea);
         return RedirectToAction("Index");
