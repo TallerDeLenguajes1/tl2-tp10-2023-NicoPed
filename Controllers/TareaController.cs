@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using tl2_tp10_2023_NicoPed.ViewModels;
 
 namespace tl2_tp10_2023_NicoPed;
 
@@ -12,16 +13,48 @@ public class TareaController : Controller
         _logger = logger;
     }
 
+    private bool estaLogueado(){
+        if (HttpContext.Session !=null)
+        {
+            return true;
+        }
+        return false;
+    }
+    private bool isAdmin(){
+       if (HttpContext.Session.GetString("rol") == "admin")
+       {
+            return true;
+       }
+       return false;
+    }
+    private int obtenerId(){
+        int id = (int) HttpContext.Session.GetInt32("id"); 
+        return id;
+    }
     public IActionResult Index()
     {
-        var tareas = repository.GetAllTareas();
-        return View(tareas);
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        List<Tarea> tareas= new List<Tarea>();
+        if (isAdmin())
+        {
+            tareas = repository.GetAllTareas();
+        }else
+        {
+            tareas = repository.GetAllUsersTareas(obtenerId()); 
+        }
+        var tareasVM = new ListarTareaViewModel(tareas);
+        return View(tareasVM.ListarTareaVM);
     }
+
     [HttpGet]
     public IActionResult CrearTarea()
     {   
         return View(new Tarea());
     }
+    
     [HttpPost]
     public IActionResult CrearTarea(Tarea tarea)
     {   
