@@ -1,3 +1,5 @@
+using tl2_tp10_2023_NicoPed.ViewModels;
+
 namespace tl2_tp10_2023_NicoPed;
 public class Tablero{
     private int id_tablero;
@@ -7,6 +9,13 @@ public class Tablero{
 
     public Tablero()
     {
+    }
+
+    public Tablero(CrearTableroViewModel tablero)
+    {
+        id_usuario_propietario = tablero.Id_usuario_propietario;
+        Nombre = tablero.Nombre;
+        Descripcion = tablero.Descripcion;
     }
 
     public int Id_tablero { get => id_tablero; set => id_tablero = value; }

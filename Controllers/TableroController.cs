@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using tl2_tp10_2023_NicoPed.ViewModels;
 
 namespace tl2_tp10_2023_NicoPed;
 
@@ -36,7 +37,7 @@ public class TableroController : Controller
     {
         if (!estaLogueado())
         {
-            RedirectToRoute(new { controller = "Home", action = "Index" });
+            RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         List<Tablero> tableros = new List<Tablero>();
         if (isAdmin())
@@ -46,19 +47,30 @@ public class TableroController : Controller
         {
             tableros = repository.GetAllUsersTableros(obtenerId());
         }
-            return View(tableros);
+            var tableroVM = new ListarTableroViewModel(tableros);
+            return View(tableroVM.ListarTableroVM);
     }
 
     [HttpGet]
     public IActionResult CrearTablero()
     {   
-        return View(new Tablero());
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        CrearTableroViewModel nuevoTableroVM = new CrearTableroViewModel();
+        return View(nuevoTableroVM);
     }
 
     [HttpPost]
-    public IActionResult CrearTablero(Tablero tablero)
+    public IActionResult CrearTablero(CrearTableroViewModel tablero)
     {   
-        repository.CreateTablero(tablero);
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        Tablero newTablero = new Tablero(tablero);
+        repository.CreateTablero(newTablero);
         return RedirectToAction("Index");
     }
    

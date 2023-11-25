@@ -1,15 +1,15 @@
-@{
-    ViewData["Title"] = "Home Page";
-}
 
-@model List<Tablero>
+@{
+    ViewData["Title"] = "Tablero";
+}
+@model List<tl2_tp10_2023_NicoPed.ViewModels.TableroViewModel>
 
 <h2>Lista De Tablero</h2>
 
 <table class="table table-green">
     <thead>
         <tr>
-            <th>Id_Tablero</th>
+            <th hidden>Id_Tablero</th>
             <th>Id_usuario_propietario</th>
             <th>Nombre</th>
             <th>Descripción</th>
@@ -20,7 +20,7 @@
         @foreach (var tablero in Model)
         {
             <tr>
-                <td>@tablero.Id_tablero</td>
+                <td hidden>@tablero.Id_tablero</td>
                 <td>@tablero.Id_usuario_propietario</td>
                 <td>@tablero.Nombre</td>
                 <td>@tablero.Descripcion</td>
