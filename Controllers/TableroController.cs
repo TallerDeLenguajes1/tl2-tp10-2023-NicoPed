@@ -78,14 +78,23 @@ public class TableroController : Controller
     [HttpGet]
     public IActionResult EditarTablero(int idTablero)
     {  
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
         var tablero = repository.GetTableroById(idTablero);
-        return View(tablero);
+        var tableroVM = new EditarTableroViewModel(tablero);
+        return View(tableroVM);
     }
-
+//DUDAAAAAAAAAAAAAAA DEBO MANDAR EL ID_USU_PROP
     [HttpPost]
-    public IActionResult EditarTablero(Tablero tablero)
+    public IActionResult EditarTablero(EditarTableroViewModel tableroVW)
     {   
-        
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        var tablero =  new Tablero (tableroVW);
         repository.UpdateTablero(tablero);
         return RedirectToAction("Index");
     }
