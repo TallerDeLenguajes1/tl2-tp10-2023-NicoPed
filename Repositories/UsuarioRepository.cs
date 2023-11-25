@@ -11,13 +11,15 @@ namespace tl2_tp10_2023_NicoPed
         public bool CreateUsuario(Usuario usuario)
         {
             var resultado = false;
-            var queryString = @"INSERT INTO usuario (nombre_de_usuario)
-            VALUES(@nombre);"; //LA CONSULTA
+            var queryString = @"INSERT INTO usuario (nombre_de_usuario, contrasenia, rol)
+            VALUES(@nombre,@contrasenia, @rol);"; //LA CONSULTA
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 var command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
                 connection.Open();
                 command.Parameters.Add(new SQLiteParameter("@nombre",usuario.Nombre_de_usuario));
+                command.Parameters.Add(new SQLiteParameter("@contrasenia",usuario.Contrasenia));
+                command.Parameters.Add(new SQLiteParameter("@rol",usuario.RolDeUsuario));
                 command.ExecuteNonQuery();
                 connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
                 resultado = true;
@@ -97,13 +99,15 @@ namespace tl2_tp10_2023_NicoPed
         public bool Updateusuario(Usuario usuario)
         {
             var resultado = false;
-            var queryString = @"UPDATE usuario SET nombre_de_usuario = @nombre
+            var queryString = @"UPDATE usuario SET nombre_de_usuario = @nombre ,contrasenia = @contrasenia, rol = @rol 
             WHERE id_usuario = @id;"; //LA CONSULTA
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 var command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
                 connection.Open();
                 command.Parameters.Add(new SQLiteParameter("@nombre",usuario.Nombre_de_usuario));
+                command.Parameters.Add(new SQLiteParameter("@contrasenia",usuario.Contrasenia));
+                command.Parameters.Add(new SQLiteParameter("@rol",usuario.RolDeUsuario));
                 command.Parameters.Add(new SQLiteParameter("@id",usuario.Id_usuario));
                 command.ExecuteNonQuery();
                 connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
