@@ -52,13 +52,23 @@ public class TareaController : Controller
     [HttpGet]
     public IActionResult CrearTarea()
     {   
-        return View(new Tarea());
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+
+        return View(new CrearTareaViewModel());
     }
-    
+
     [HttpPost]
-    public IActionResult CrearTarea(Tarea tarea)
+    public IActionResult CrearTarea(CrearTareaViewModel tarea)
     {   
-        repository.CreateTarea(tarea);
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        Tarea newTarea = new Tarea(tarea);
+        repository.CreateTarea(newTarea);
         return RedirectToAction("Index");
     }
    
@@ -66,15 +76,24 @@ public class TareaController : Controller
     [HttpGet]
     public IActionResult EditarTarea(int idTarea)
     {  
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
         var tarea = repository.GetTareaById(idTarea);
-        return View(tarea);
+        var tareasVM = new EditarTareaViewModel(tarea);
+        return View(tareasVM);
     }
 
     [HttpPost]
-    public IActionResult EditarTarea(Tarea tarea)
+    public IActionResult EditarTarea(EditarTareaViewModel tarea)
     {   
-        
-        repository.UpdateTarea(tarea);
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        var tareaActualizada = new Tarea(tarea);
+        repository.UpdateTarea(tareaActualizada);
         return RedirectToAction("Index");
     }
 

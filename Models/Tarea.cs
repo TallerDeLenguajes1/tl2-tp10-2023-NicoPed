@@ -1,3 +1,5 @@
+using tl2_tp10_2023_NicoPed.ViewModels;
+
 namespace tl2_tp10_2023_NicoPed;
 
 public class Tarea{
@@ -18,6 +20,27 @@ public class Tarea{
 
     public Tarea()
     {
+    }
+
+    public Tarea(CrearTareaViewModel tareaViewModel)
+    {
+        Id_tablero = tareaViewModel.Id_tablero;
+        Nombre = tareaViewModel.Nombre;
+        Estado = tareaViewModel.Estado;
+        Descripcion = tareaViewModel.Descripcion;
+        Color = tareaViewModel.Color;
+        Id_usuario_asignado = tareaViewModel.Id_usuario_asignado;
+    }
+
+    public Tarea(EditarTareaViewModel tareaViewModel)
+    {
+        Id_tarea = tareaViewModel.Id_tarea;
+        Id_tablero = tareaViewModel.Id_tablero;
+        Nombre = tareaViewModel.Nombre;
+        Estado = tareaViewModel.Estado;
+        Descripcion = tareaViewModel.Descripcion;
+        Color = tareaViewModel.Color;
+        Id_usuario_asignado = tareaViewModel.Id_usuario_asignado;
     }
 
     public int Id_tarea { get => id_tarea; set => id_tarea = value; }

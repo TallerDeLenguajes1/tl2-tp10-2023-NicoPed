@@ -10,6 +10,10 @@ public class CrearTareaViewModel{
     private string? color;
     private int id_usuario_asignado;
 
+    public CrearTareaViewModel()
+    {
+    }
+
     public int Id_tablero { get => id_tablero; set => id_tablero = value; }
     public string? Nombre { get => nombre; set => nombre = value; }
     public string? Descripcion { get => descripcion; set => descripcion = value; }
