@@ -1,5 +1,6 @@
 
 @model tl2_tp10_2023_NicoPed.ViewModels.EditarTareaViewModel;
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}
 
 <form asp-controller="Tarea" asp-action="EditarTarea">
     <input hidden asp-for="@Model.Id_tarea">

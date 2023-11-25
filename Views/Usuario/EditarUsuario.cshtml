@@ -1,5 +1,6 @@
 
 @model tl2_tp10_2023_NicoPed.ViewModels.EditarUsuarioViewModel
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}
 
 <form asp-controller="Usuario" asp-action="EditarUsuario">
     <input hidden asp-for="@Model.Id_usuario">
