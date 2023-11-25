@@ -12,10 +12,41 @@ public class TableroController : Controller
         _logger = logger;
     }
 
+    //FUNCION PARA VER SI ESTA LOGUEADO Y QUE TIPO ES
+    private bool estaLogueado(){
+        if (HttpContext.Session !=null)
+        {
+            return true;
+        }
+        return false;
+    }
+    private bool isAdmin(){
+       if (HttpContext.Session.GetString("rol") == "admin")
+       {
+            return true;
+       }
+       return false;
+    }
+    private int obtenerId(){
+        int id = (int) HttpContext.Session.GetInt32("id"); 
+        return id;
+    }
+    // --------------------------------------
     public IActionResult Index()
     {
-        var tableros = repository.GetAllTableros(); 
-        return View(tableros);
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Home", action = "Index" });
+        }
+        List<Tablero> tableros = new List<Tablero>();
+        if (isAdmin())
+        {
+            tableros = repository.GetAllTableros(); 
+        }else
+        {
+            tableros = repository.GetAllUsersTableros(obtenerId());
+        }
+            return View(tableros);
     }
 
     [HttpGet]
