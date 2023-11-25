@@ -29,7 +29,12 @@ public class TareaController : Controller
        return false;
     }
     private int obtenerId(){
-        int id = (int) HttpContext.Session.GetInt32("id"); 
+        string? ids = HttpContext.Session.GetString("id");
+        int id = 9999;
+        if (ids != null)
+        {
+            id = int.Parse(ids);
+        }
         return id;
     }
     public IActionResult Index()

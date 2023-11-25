@@ -11,6 +11,11 @@ public class EditarTareaViewModel{
     private int id_usuario_asignado;
 
     private int id_tarea;
+
+    public EditarTareaViewModel()
+    {
+    }
+
     public EditarTareaViewModel(Tarea tarea)
     {
         Id_tablero = tarea.Id_tablero;

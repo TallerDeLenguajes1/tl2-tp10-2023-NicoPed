@@ -6,6 +6,10 @@ public class EditarTableroViewModel
     private int id_tablero;
     private int id_usuario_propietario;
 
+    public EditarTableroViewModel()
+    {
+    }
+
     public EditarTableroViewModel(Tablero tablero)
     {
         Id_tablero = tablero.Id_tablero;
