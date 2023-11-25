@@ -2,13 +2,21 @@
     ViewData["Title"] = "Crear Usuario";
 }
 
-@model Usuario
+@model tl2_tp10_2023_NicoPed.ViewModels.CrearUsuarioViewModel
 
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Usuario" asp-action="CrearUsuario">
     <div class="form-group">
         <label asp-for="@Model.Nombre_de_usuario"></label>
         <input asp-for="@Model.Nombre_de_usuario" class="form-control" />
+    </div>
+        <div class="form-group">
+        <label asp-for="@Model.Contrasenia"></label>
+        <input asp-for="@Model.Contrasenia" class="form-control" />
+    </div>
+        <div class="form-group">
+        <label asp-for="@Model.RolUsuario"></label>
+        <input asp-for="@Model.RolUsuario" class="form-control" />
     </div>
     <button type="submit" class="btn btn-outline-primary">Enviar</button>
 </form>

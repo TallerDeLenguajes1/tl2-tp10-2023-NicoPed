@@ -102,6 +102,10 @@ public class TableroController : Controller
     //ELIMINAR
     public IActionResult DeleteTablero(int idTablero)
     {  
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
         repository.RemoveTablero(idTablero);
         return RedirectToAction("Index");
     }

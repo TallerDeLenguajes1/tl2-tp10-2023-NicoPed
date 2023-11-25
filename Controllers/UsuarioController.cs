@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using tl2_tp10_2023_NicoPed.ViewModels;
 
 namespace tl2_tp10_2023_NicoPed;
 
@@ -11,23 +12,51 @@ public class UsuarioController : Controller
     {
         _logger = logger;
     }
-
+    private bool estaLogueado(){
+        if (HttpContext.Session !=null)
+        {
+            return true;
+        }
+        return false;
+    }
+    private bool isAdmin(){
+       if (HttpContext.Session.GetString("rol") == "admin")
+       {
+            return true;
+       }
+       return false;
+    }
     public IActionResult Index()
     {
+        if (!estaLogueado() || !isAdmin())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
         var usuarios = repository.GetAllUsuarios(); 
-        return View(usuarios);
+        var usuariosVM = new ListarUsuarioViewModel(usuarios);
+        return View(usuariosVM.ListarUsariosVM);
     }
 
     [HttpGet]
     public IActionResult CrearUsuario()
     {   
-        return View(new Usuario());
+        if (!estaLogueado() || !isAdmin())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+
+        return View(new CrearUsuarioViewModel());
     }
 
     [HttpPost]
-    public IActionResult CrearUsuario(Usuario usuario)
+    public IActionResult CrearUsuario(CrearUsuarioViewModel usuario)
     {   
-        repository.CreateUsuario(usuario);
+        if (!estaLogueado() || !isAdmin())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        var newUsuario = new Usuario(usuario);
+        repository.CreateUsuario(newUsuario);
         return RedirectToAction("Index");
     }
    
@@ -35,21 +64,33 @@ public class UsuarioController : Controller
     [HttpGet]
     public IActionResult EditarUsuario(int idUsuario)
     {  
+        if (!estaLogueado() || !isAdmin())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
         var usuario = repository.GetUsuarioById(idUsuario);
         return View(usuario);
     }
 
     [HttpPost]
-    public IActionResult EditarUsuario(Usuario usuario)
+    public IActionResult EditarUsuario(EditarUsuarioViewModel usuario)
     {   
-        
-        repository.Updateusuario(usuario);
+        if (!estaLogueado() || !isAdmin())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        var usuarioActualizado = new Usuario(usuario);
+        repository.Updateusuario(usuarioActualizado);
         return RedirectToAction("Index");
     }
 
     //ELIMINAR
     public IActionResult DeleteUsuario(int idUsuario)
     {  
+        if (!estaLogueado() || !isAdmin())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }        
         repository.RemoveUsuario(idUsuario);
         return RedirectToAction("Index");
     }

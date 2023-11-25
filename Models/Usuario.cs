@@ -12,7 +12,6 @@ public class Usuario{
 
     private Rol rolDeUsuario;
 
-
     public int Id_usuario { get => id_usuario; set => id_usuario = value; }
     public string? Nombre_de_usuario { get => nombre_de_usuario; set => nombre_de_usuario = value; }
     public string? Contrasenia { get => contrasenia; set => contrasenia = value; }
@@ -26,6 +25,20 @@ public class Usuario{
     {          
         Nombre_de_usuario = loginViewModel.NombreUsuario;
         Contrasenia = loginViewModel.ContraseniaUsuario;
-    } 
+    }
 
+    public Usuario(CrearUsuarioViewModel usuarioVM)
+    {
+        Nombre_de_usuario = usuarioVM.Nombre_de_usuario;
+        Contrasenia = usuarioVM.Contrasenia;
+        RolDeUsuario = usuarioVM.RolUsuario;
+    }
+
+    public Usuario(EditarUsuarioViewModel usuarioVM)
+    {
+        Nombre_de_usuario = usuarioVM.Nombre_de_usuario;
+        Contrasenia = usuarioVM.Contrasenia;
+        RolDeUsuario = usuarioVM.RolUsuario;
+        Id_usuario = usuarioVM.Id_usuario;    
+    }
 }

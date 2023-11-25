@@ -100,6 +100,10 @@ public class TareaController : Controller
     //ELIMINAR
     public IActionResult DeleteTarea(int idTarea)
     {  
+        if (!estaLogueado())
+        {
+            RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
         repository.RemoveTarea(idTarea);
         return RedirectToAction("Index");
     }
