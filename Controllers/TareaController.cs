@@ -8,10 +8,11 @@ namespace tl2_tp10_2023_NicoPed;
 public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
-    private ITareaRepository repository = new TareaRepository();
-    public TareaController(ILogger<TareaController> logger)
+    private ITareaRepository _repository;
+    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository)
     {
         _logger = logger;
+        _repository = tareaRepository;
     }
 
     private bool estaLogueado(){
@@ -46,10 +47,10 @@ public class TareaController : Controller
         List<Tarea> tareas= new List<Tarea>();
         if (isAdmin())
         {
-            tareas = repository.GetAllTareas();
+            tareas = _repository.GetAllTareas();
         }else
         {
-            tareas = repository.GetAllUsersTareas(obtenerId()); 
+            tareas = _repository.GetAllUsersTareas(obtenerId()); 
         }
         var tareasVM = new ListarTareaViewModel(tareas);
         return View(tareasVM.ListarTareaVM);
@@ -78,7 +79,7 @@ public class TareaController : Controller
            return RedirectToRoute(new { controller = "Tarea", action = "Index" });     
         }
         Tarea newTarea = new Tarea(tarea);
-        repository.CreateTarea(newTarea);
+        _repository.CreateTarea(newTarea);
         return RedirectToAction("Index");
     }
    
@@ -90,7 +91,7 @@ public class TareaController : Controller
         {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
-        var tarea = repository.GetTareaById(idTarea);
+        var tarea = _repository.GetTareaById(idTarea);
         var tareasVM = new EditarTareaViewModel(tarea);
         return View(tareasVM);
     }
@@ -107,7 +108,7 @@ public class TareaController : Controller
            return RedirectToRoute(new { controller = "Tarea", action = "Index" });     
         }
         var tareaActualizada = new Tarea(tarea);
-        repository.UpdateTarea(tareaActualizada);
+        _repository.UpdateTarea(tareaActualizada);
         return RedirectToAction("Index");
     }
 
@@ -118,7 +119,7 @@ public class TareaController : Controller
         {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
-        repository.RemoveTarea(idTarea);
+        _repository.RemoveTarea(idTarea);
         return RedirectToAction("Index");
     }
 

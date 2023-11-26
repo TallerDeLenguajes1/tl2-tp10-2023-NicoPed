@@ -8,10 +8,11 @@ namespace tl2_tp10_2023_NicoPed;
 public class TableroController : Controller
 {
     private readonly ILogger<TableroController> _logger;
-    private ITableroRepository repository = new TableroRepository();
-    public TableroController(ILogger<TableroController> logger)
+    private ITableroRepository _repository;
+    public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository)
     {
         _logger = logger;
+        _repository = tableroRepository;
     }
 
     //FUNCION PARA VER SI ESTA LOGUEADO Y QUE TIPO ES
@@ -48,10 +49,10 @@ public class TableroController : Controller
         List<Tablero> tableros = new List<Tablero>();
         if (isAdmin())
         {
-            tableros = repository.GetAllTableros(); 
+            tableros = _repository.GetAllTableros(); 
         }else
         {
-            tableros = repository.GetAllUsersTableros(obtenerId());
+            tableros = _repository.GetAllUsersTableros(obtenerId());
         }
             var tableroVM = new ListarTableroViewModel(tableros);
             return View(tableroVM.ListarTableroVM);
@@ -80,7 +81,7 @@ public class TableroController : Controller
            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
         }
         Tablero newTablero = new Tablero(tablero);
-        repository.CreateTablero(newTablero);
+        _repository.CreateTablero(newTablero);
         return RedirectToAction("Index");
     }
    
@@ -92,7 +93,7 @@ public class TableroController : Controller
         {
            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
-        var tablero = repository.GetTableroById(idTablero);
+        var tablero = _repository.GetTableroById(idTablero);
         var tableroVM = new EditarTableroViewModel(tablero);
         return View(tableroVM);
     }
@@ -109,7 +110,7 @@ public class TableroController : Controller
            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
         }
         var tablero =  new Tablero (tableroVW);
-        repository.UpdateTablero(tablero);
+        _repository.UpdateTablero(tablero);
         return RedirectToAction("Index");
     }
 
@@ -120,7 +121,7 @@ public class TableroController : Controller
         {
            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
-        repository.RemoveTablero(idTablero);
+        _repository.RemoveTablero(idTablero);
         return RedirectToAction("Index");
     }
 

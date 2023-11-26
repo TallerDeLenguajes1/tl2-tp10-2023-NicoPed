@@ -7,12 +7,13 @@ namespace tl2_tp10_2023_NicoPed;
 public class LoginController: Controller
 {
     private readonly ILogger<LoginController> _logger;
-    private IUsuarioRepository repository;
+    private readonly IUsuarioRepository _repository;
 
-    public LoginController(ILogger<LoginController> logger)
+//ESTA BIEN ASI???????
+    public LoginController(ILogger<LoginController> logger, IUsuarioRepository usuarioRepository)
     {
         _logger = logger;
-        repository = new UsuarioRepository();
+        _repository = usuarioRepository;
     }
 
     [HttpGet]
@@ -23,7 +24,7 @@ public class LoginController: Controller
     [HttpPost] // AQUI VIENE EL LOGIN DEL FORM
     public IActionResult Login(LoginViewModel loginUsuario){
 
-        var usuarioLogueado = repository.GetUsuario(loginUsuario.NombreUsuario, loginUsuario.ContraseniaUsuario);
+        var usuarioLogueado = _repository.GetUsuario(loginUsuario.NombreUsuario, loginUsuario.ContraseniaUsuario);
         
         if(usuarioLogueado != null){
             
