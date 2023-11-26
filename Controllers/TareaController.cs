@@ -73,6 +73,10 @@ public class TareaController : Controller
         {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
+        if (!ModelState.IsValid)
+        {
+           return RedirectToRoute(new { controller = "Tarea", action = "Index" });     
+        }
         Tarea newTarea = new Tarea(tarea);
         repository.CreateTarea(newTarea);
         return RedirectToAction("Index");
@@ -97,6 +101,10 @@ public class TareaController : Controller
         if (!estaLogueado())
         {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        if (!ModelState.IsValid)
+        {
+           return RedirectToRoute(new { controller = "Tarea", action = "Index" });     
         }
         var tareaActualizada = new Tarea(tarea);
         repository.UpdateTarea(tareaActualizada);

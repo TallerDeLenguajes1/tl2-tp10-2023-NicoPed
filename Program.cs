@@ -1,8 +1,14 @@
+using tl2_tp10_2023_NicoPed;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();//se agrega para login***
+
+builder.Services.AddScoped<ITableroRepository, TableroRepository>();
+builder.Services.AddScoped<ITareaRepository, TareaRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddSession(options =>//se agrega para login***
 {

@@ -57,6 +57,11 @@ public class UsuarioController : Controller
         {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
+        //SI LO QUE SE ENVIO NO ES VALIDO
+        if (!ModelState.IsValid)
+        {
+           return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
+        }
         var newUsuario = new Usuario(usuario);
         repository.CreateUsuario(newUsuario);
         return RedirectToAction("Index");
@@ -81,6 +86,10 @@ public class UsuarioController : Controller
         if (!estaLogueado() || !isAdmin())
         {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        if (!ModelState.IsValid)
+        {
+           return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
         }
         var usuarioActualizado = new Usuario(usuario);
         repository.Updateusuario(usuarioActualizado);

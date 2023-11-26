@@ -38,7 +38,7 @@ public class TableroController : Controller
         }
         return id;
     }
-    // --------------------------------------
+// ------------------???????--------------------
     public IActionResult Index()
     {
         if (!estaLogueado())
@@ -75,6 +75,10 @@ public class TableroController : Controller
         {
            return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
+        if (!ModelState.IsValid)
+        {
+           return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+        }
         Tablero newTablero = new Tablero(tablero);
         repository.CreateTablero(newTablero);
         return RedirectToAction("Index");
@@ -99,6 +103,10 @@ public class TableroController : Controller
         if (!estaLogueado())
         {
            return RedirectToRoute(new { controller = "Login", action = "Index" });
+        }
+        if (!ModelState.IsValid)
+        {
+           return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
         }
         var tablero =  new Tablero (tableroVW);
         repository.UpdateTablero(tablero);
