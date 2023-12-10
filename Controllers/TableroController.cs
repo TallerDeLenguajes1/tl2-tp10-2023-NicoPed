@@ -42,20 +42,28 @@ public class TableroController : Controller
 // ------------------???????--------------------
     public IActionResult Index()
     {
-        if (!estaLogueado())
-        {
-           return RedirectToRoute(new { controller = "Login", action = "Index" });
+        try
+        {        
+            if (!estaLogueado())
+            {
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            List<Tablero> tableros = new List<Tablero>();
+            if (isAdmin())
+            {
+                tableros = _repository.GetAllTableros(); 
+            }else
+            {
+                tableros = _repository.GetAllUsersTableros(obtenerId());
+            }
+                var tableroVM = new ListarTableroViewModel(tableros);
+                return View(tableroVM.ListarTableroVM);
         }
-        List<Tablero> tableros = new List<Tablero>();
-        if (isAdmin())
+        catch (System.Exception ex)
         {
-            tableros = _repository.GetAllTableros(); 
-        }else
-        {
-            tableros = _repository.GetAllUsersTableros(obtenerId());
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
         }
-            var tableroVM = new ListarTableroViewModel(tableros);
-            return View(tableroVM.ListarTableroVM);
     }
 
     [HttpGet]

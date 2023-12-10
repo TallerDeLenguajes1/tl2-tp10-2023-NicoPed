@@ -1,3 +1,4 @@
+using System.Data.SqlTypes;
 using tl2_tp10_2023_NicoPed;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,13 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();//se agrega para login***
 
+//LA CADENA DE CONEXION ANTES DE LAS INYECCIONES DE DEPENDENCIA
+var cadenaConexion = builder.Configuration.GetConnectionString("SqliteConection")!.ToString();
+builder.Services.AddSingleton<string>(cadenaConexion);
+
 builder.Services.AddScoped<ITableroRepository, TableroRepository>();
 builder.Services.AddScoped<ITareaRepository, TareaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddSession(options =>//se agrega para login***
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(500000);
+    options.IdleTimeout = TimeSpan.FromSeconds(500);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

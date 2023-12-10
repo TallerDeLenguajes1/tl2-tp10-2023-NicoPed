@@ -9,10 +9,17 @@ namespace tl2_tp10_2023_NicoPed
     public class TableroRepository : ITableroRepository
     {
         //LA CADENA DE CONEXION!!!!!!!!
-        private string cadenaConexion = "Data Source=db/kanban.db;Cache=Shared";
+        private readonly string cadenaConexion; 
+        // = "Data Source=db/kanban.db;Cache=Shared";
+
+        public TableroRepository(string cadenaConexion)
+        {
+            this.cadenaConexion = cadenaConexion;
+        }
 
         public bool CreateTablero(Tablero tablero)
         {
+            
             var resultado = false;
             var queryString = @"INSERT INTO tablero (id_usuario_propietario, nombre, descripcion)
             VALUES(@id_usu, @nombre, @descripcion)";
