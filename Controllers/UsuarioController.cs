@@ -30,81 +30,129 @@ public class UsuarioController : Controller
     }
     public IActionResult Index()
     {
-        if (!estaLogueado() || !isAdmin())
+        try
         {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            if (!estaLogueado() || !isAdmin())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            var usuarios = repository.GetAllUsuarios(); 
+            var usuariosVM = new ListarUsuarioViewModel(usuarios);
+            return View(usuariosVM.ListarUsariosVM);
         }
-        var usuarios = repository.GetAllUsuarios(); 
-        var usuariosVM = new ListarUsuarioViewModel(usuarios);
-        return View(usuariosVM.ListarUsariosVM);
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
     }
 
     [HttpGet]
     public IActionResult CrearUsuario()
     {   
-        if (!estaLogueado() || !isAdmin())
+        try
         {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
-        }
+            if (!estaLogueado() || !isAdmin())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
 
-        return View(new CrearUsuarioViewModel());
+            return View(new CrearUsuarioViewModel());
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
     }
 
     [HttpPost]
     public IActionResult CrearUsuario(CrearUsuarioViewModel usuario)
     {   
-        if (!estaLogueado() || !isAdmin())
+        try
         {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            if (!estaLogueado() || !isAdmin())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            //SI LO QUE SE ENVIO NO ES VALIDO
+            if (!ModelState.IsValid)
+            {
+            return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
+            }
+            var newUsuario = new Usuario(usuario);
+            repository.CreateUsuario(newUsuario);
+            return RedirectToAction("Index");
         }
-        //SI LO QUE SE ENVIO NO ES VALIDO
-        if (!ModelState.IsValid)
+        catch (System.Exception ex)
         {
-           return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
         }
-        var newUsuario = new Usuario(usuario);
-        repository.CreateUsuario(newUsuario);
-        return RedirectToAction("Index");
     }
    
    //MODIFICAR
     [HttpGet]
     public IActionResult EditarUsuario(int idUsuario)
     {  
-        if (!estaLogueado() || !isAdmin())
+        try
         {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            if (!estaLogueado() || !isAdmin())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            var usuario = repository.GetUsuarioById(idUsuario);
+            var usuariosVM = new EditarUsuarioViewModel(usuario);
+            return View(usuariosVM);
         }
-        var usuario = repository.GetUsuarioById(idUsuario);
-        var usuariosVM = new EditarUsuarioViewModel(usuario);
-        return View(usuariosVM);
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
     }
 
     [HttpPost]
     public IActionResult EditarUsuario(EditarUsuarioViewModel usuario)
     {   
-        if (!estaLogueado() || !isAdmin())
+        try
         {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            if (!estaLogueado() || !isAdmin())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!ModelState.IsValid)
+            {
+            return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
+            }
+            var usuarioActualizado = new Usuario(usuario);
+            repository.Updateusuario(usuarioActualizado);
+            return RedirectToAction("Index");
         }
-        if (!ModelState.IsValid)
+        catch (System.Exception ex)
         {
-           return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
         }
-        var usuarioActualizado = new Usuario(usuario);
-        repository.Updateusuario(usuarioActualizado);
-        return RedirectToAction("Index");
     }
 
     //ELIMINAR
     public IActionResult DeleteUsuario(int idUsuario)
     {  
-        if (!estaLogueado() || !isAdmin())
+        try
         {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
-        }        
-        repository.RemoveUsuario(idUsuario);
-        return RedirectToAction("Index");
+            if (!estaLogueado() || !isAdmin())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }        
+            repository.RemoveUsuario(idUsuario);
+            return RedirectToAction("Index");
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

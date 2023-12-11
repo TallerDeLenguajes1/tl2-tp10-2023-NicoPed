@@ -69,68 +69,113 @@ public class TableroController : Controller
     [HttpGet]
     public IActionResult CrearTablero()
     {   
-        if (!estaLogueado())
+        try
         {
-           return RedirectToRoute(new { controller = "Login", action = "Index" });
+            
+            if (!estaLogueado())
+            {
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            CrearTableroViewModel nuevoTableroVM = new CrearTableroViewModel();
+            return View(nuevoTableroVM);
         }
-        CrearTableroViewModel nuevoTableroVM = new CrearTableroViewModel();
-        return View(nuevoTableroVM);
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
     }
 
     [HttpPost]
     public IActionResult CrearTablero(CrearTableroViewModel tablero)
-    {   
-        if (!estaLogueado())
+    {
+        try
         {
-           return RedirectToRoute(new { controller = "Login", action = "Index" });
+            if(!ModelState.IsValid) return RedirectToRoute(new{controller="Logueo", action="Index"});
+                
+            if (!estaLogueado())
+            {
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!ModelState.IsValid)
+            {
+            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+            }
+            Tablero newTablero = new Tablero(tablero);
+            _repository.CreateTablero(newTablero);
+            return RedirectToAction("Index");
         }
-        if (!ModelState.IsValid)
+        catch (System.Exception ex)
         {
-           return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
         }
-        Tablero newTablero = new Tablero(tablero);
-        _repository.CreateTablero(newTablero);
-        return RedirectToAction("Index");
     }
    
    //MODIFICAR
     [HttpGet]
     public IActionResult EditarTablero(int idTablero)
     {  
-        if (!estaLogueado())
+        try
         {
-           return RedirectToRoute(new { controller = "Login", action = "Index" });
+            
+            if(!ModelState.IsValid) return RedirectToRoute(new{controller="Logueo", action="Index"});
+
+            if (!estaLogueado())
+            {
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            var tablero = _repository.GetTableroById(idTablero);
+            var tableroVM = new EditarTableroViewModel(tablero);
+            return View(tableroVM);
         }
-        var tablero = _repository.GetTableroById(idTablero);
-        var tableroVM = new EditarTableroViewModel(tablero);
-        return View(tableroVM);
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
     }
 //DUDAAAAAAAAAAAAAAA DEBO MANDAR EL ID_USU_PROP
     [HttpPost]
     public IActionResult EditarTablero(EditarTableroViewModel tableroVW)
     {   
-        if (!estaLogueado())
-        {
-           return RedirectToRoute(new { controller = "Login", action = "Index" });
+        try{
+            if (!estaLogueado())
+            {
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!ModelState.IsValid)
+            {
+            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+            }
+            var tablero =  new Tablero (tableroVW);
+            _repository.UpdateTablero(tablero);
+            return RedirectToAction("Index");
         }
-        if (!ModelState.IsValid)
+        catch (System.Exception ex)
         {
-           return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
         }
-        var tablero =  new Tablero (tableroVW);
-        _repository.UpdateTablero(tablero);
-        return RedirectToAction("Index");
     }
 
     //ELIMINAR
     public IActionResult DeleteTablero(int idTablero)
     {  
-        if (!estaLogueado())
+        try
         {
-           return RedirectToRoute(new { controller = "Login", action = "Index" });
+            if (!estaLogueado())
+            {
+            return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            _repository.RemoveTablero(idTablero);
+            return RedirectToAction("Index");
         }
-        _repository.RemoveTablero(idTablero);
-        return RedirectToAction("Index");
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
