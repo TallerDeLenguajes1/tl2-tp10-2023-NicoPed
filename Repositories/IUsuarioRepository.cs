@@ -10,9 +10,9 @@ namespace tl2_tp10_2023_NicoPed
 {
     public List<Usuario> GetAllUsuarios();
     public Usuario GetUsuarioById(int id);
-    public bool CreateUsuario(Usuario usuario);
-    public bool RemoveUsuario(int id);
-    public bool Updateusuario(Usuario usuario);
+    public void CreateUsuario(Usuario usuario);
+    public void RemoveUsuario(int id);
+    public void Updateusuario(Usuario usuario);
     public Usuario GetUsuario(string nombreUsuario, string contraseniaUsuario);
     
     }
