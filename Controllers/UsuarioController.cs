@@ -8,10 +8,13 @@ namespace tl2_tp10_2023_NicoPed;
 public class UsuarioController : Controller
 {
     private readonly ILogger<UsuarioController> _logger;
-    private IUsuarioRepository repository = new UsuarioRepository();
-    public UsuarioController(ILogger<UsuarioController> logger)
+    private IUsuarioRepository _repository; 
+    // = new UsuarioRepository();
+    public UsuarioController(ILogger<UsuarioController> logger, IUsuarioRepository repository)
     {
         _logger = logger;
+        _repository = repository;
+
     }
     private bool estaLogueado(){
         if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == "Administrador" || HttpContext.Session.GetString("rol") == "Operador"))
@@ -36,7 +39,7 @@ public class UsuarioController : Controller
             {
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
-            var usuarios = repository.GetAllUsuarios(); 
+            var usuarios = _repository.GetAllUsuarios(); 
             var usuariosVM = new ListarUsuarioViewModel(usuarios);
             return View(usuariosVM.ListarUsariosVM);
         }
@@ -81,7 +84,7 @@ public class UsuarioController : Controller
             return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
             }
             var newUsuario = new Usuario(usuario);
-            repository.CreateUsuario(newUsuario);
+            _repository.CreateUsuario(newUsuario);
             return RedirectToAction("Index");
         }
         catch (System.Exception ex)
@@ -101,7 +104,7 @@ public class UsuarioController : Controller
             {
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
-            var usuario = repository.GetUsuarioById(idUsuario);
+            var usuario = _repository.GetUsuarioById(idUsuario);
             var usuariosVM = new EditarUsuarioViewModel(usuario);
             return View(usuariosVM);
         }
@@ -126,7 +129,7 @@ public class UsuarioController : Controller
             return RedirectToRoute(new { controller = "Usuario", action = "Index" });     
             }
             var usuarioActualizado = new Usuario(usuario);
-            repository.Updateusuario(usuarioActualizado);
+            _repository.Updateusuario(usuarioActualizado);
             return RedirectToAction("Index");
         }
         catch (System.Exception ex)
@@ -145,7 +148,7 @@ public class UsuarioController : Controller
             {
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }        
-            repository.RemoveUsuario(idUsuario);
+            _repository.RemoveUsuario(idUsuario);
             return RedirectToAction("Index");
         }
         catch (System.Exception ex)
