@@ -100,10 +100,8 @@ public class TableroController : Controller
     public IActionResult CrearTablero(CrearTableroViewModel tablero)
     {
         try
-        {
-            if(!ModelState.IsValid) return RedirectToRoute(new{controller="Logueo", action="Index"});
-                
-            if (!estaLogueado())
+        {                
+            if (!estaLowgueado())
             {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
