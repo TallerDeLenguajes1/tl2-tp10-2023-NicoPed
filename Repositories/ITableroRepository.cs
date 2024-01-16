@@ -13,7 +13,8 @@ namespace tl2_tp10_2023_NicoPed
     public void CreateTablero(Tablero tablero);
     public void RemoveTablero(int id);
     public void UpdateTablero(Tablero tablero);
-    public List<Tablero> GetAllUsersTableros(int id_usuario);
-    
+    public List<Tablero> GetAllTablerosOfUser(int id_usuario);
+    public List<Tablero> GetAssignedTasksTableros(int id_usuario);
+
 }
 }

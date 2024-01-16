@@ -82,7 +82,7 @@ namespace tl2_tp10_2023_NicoPed
             }
         }
 
-        public List<Tablero> GetAllUsersTableros(int id_usuario)
+        public List<Tablero> GetAllTablerosOfUser(int id_usuario)
         {
             try
             {
@@ -112,16 +112,59 @@ namespace tl2_tp10_2023_NicoPed
                     }
                     connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
                 }
-                if (tableros == null)
-                {
-                    throw new Exception($"ERROR AL OBTENER LOS TABLEROS DEL USUARIO DEL USUARIO {id_usuario}");
-                }
+                // if (tableros == null)
+                // {
+                //     throw new Exception($"ERROR AL OBTENER LOS TABLEROS DEL USUARIO DEL USUARIO {id_usuario}");
+                // }
                 return tableros;
             }
             catch (System.Exception)
             {
                 
                 throw new Exception($"ERROR AL OBTENER LOS TABLEROS DEL USUARIO DEL USUARIO {id_usuario}");
+            }
+        }
+
+        public List<Tablero> GetAssignedTasksTableros(int id_usuario)
+        {
+                try
+                {
+
+                List<Tablero> tableros = new List<Tablero>();
+
+                using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    connection.Open();
+                    string queryString = @"
+                    SELECT DISTINCT(tablero.id_tablero), id_usuario_propietario, tablero.nombre, tablero.descripcion FROM usuario 
+                    INNER JOIN tablero ON(id_usuario = id_usuario_propietario)
+                    INNER JOIN tarea ON(tablero.id_tablero = tarea.id_tablero)
+                    WHERE id_usuario_asignado = @idUsuarioAsig AND id_usuario_propietario != @idUsuarioAsig;";
+                    var command = new SQLiteCommand(queryString, connection);
+                    command.Parameters.Add(new SQLiteParameter("@idUsuarioAsig", id_usuario));
+
+                    using(var reader = command.ExecuteReader())
+                    {
+                        while(reader.Read()){
+                            Tablero tablero = new Tablero
+                            {
+                                Id_tablero = Convert.ToInt32(reader["id_tablero"]),
+                                Id_usuario_propietario = Convert.ToInt32(reader["id_usuario_propietario"]),
+                                Nombre = reader["nombre"].ToString(),
+                                Descripcion = reader["descripcion"].ToString()
+                            };
+                            tableros.Add(tablero); 
+                        }
+                    }
+
+                    connection.Close();
+                }
+
+                return tableros;
+
+            }catch(Exception){
+                
+                throw new Exception($"ERROR AL OBTENER LOS TABLEROS ASIGNADOS DEL USUARIO {id_usuario}");
             }
         }
 

@@ -10,15 +10,12 @@ public class CrearTableroViewModel
     public CrearTableroViewModel()
     {
     }
-    [Required(ErrorMessage = "Este campo es requerido.")]
-    [Display(Name = "Id Usuario Propietario")]
+    [Required(ErrorMessage = "El tablero debe tener propietario")]
+    [Display(Name = "Usuario Propietario del tablero")]
     public int Id_usuario_propietario { get => id_usuario_propietario; set => id_usuario_propietario = value; }
-    
-    [Required(ErrorMessage = "Este campo es requerido.")]
-    [Display(Name = "Nombre Del Tablero")]
+    [Required(ErrorMessage = "Este campo es requerido")]
+    [Display(Name = "Nombre del tablero")]
     public string? Nombre { get => nombre; set => nombre = value; }
-    
-    [Required(ErrorMessage = "Este campo es requerido.")]
-    [Display(Name = "Descripcion")] 
+    [Display(Name = "Descripción del tablero")]
     public string? Descripcion { get => descripcion; set => descripcion = value; }
 }

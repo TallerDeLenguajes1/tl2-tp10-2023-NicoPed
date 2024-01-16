@@ -29,13 +29,11 @@ public class LoginController: Controller
             if(!ModelState.IsValid) return RedirectToAction("Index");
 
             var usuarioLogueado = _repository.GetUsuario(loginUsuario.NombreUsuario, loginUsuario.ContraseniaUsuario);
-            
             //YA NO HAGO ESTE CONTROL YA DIRECTAMENTE SI FALLA SE IRA POR EL CATCH
-            // if(usuarioLogueado != null){
-                
-                LoguearUsuario(usuarioLogueado); //SI ESTA 
-                _logger.LogInformation($"El usuario {usuarioLogueado.Nombre_de_usuario} ingreso correctamente");
-                return RedirectToRoute(new {controller = "Home", action="index"});
+            // if(usuarioLogueado != null){               
+            LoguearUsuario(usuarioLogueado); //SI ESTA 
+            _logger.LogInformation($"El usuario {usuarioLogueado.Nombre_de_usuario} ingreso correctamente");
+            return RedirectToRoute(new {controller = "Home", action="index"});
             // }else{
                 // return RedirectToAction("Index");
             // }
@@ -48,7 +46,8 @@ public class LoginController: Controller
         }
     }
 
-    private void LoguearUsuario(Usuario usuario){
+    // SE SETEAN LAS VBLES DE LOGUEO
+   private void LoguearUsuario(Usuario usuario){
         HttpContext.Session.SetString("id", usuario.Id_usuario.ToString());
         HttpContext.Session.SetString("usuario", usuario.Nombre_de_usuario);
         HttpContext.Session.SetString("rol", usuario.RolDeUsuario.ToString());

@@ -9,8 +9,10 @@ public class TableroController : Controller
 {
     private readonly ILogger<TableroController> _logger;
     private ITableroRepository _repository;
-    public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository)
+    private IUsuarioRepository _usuarioRepository;
+    public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository, IUsuarioRepository usuarioRepository)
     {
+        _usuarioRepository = usuarioRepository;
         _logger = logger;
         _repository = tableroRepository;
     }
@@ -40,24 +42,26 @@ public class TableroController : Controller
         return id;
     }
 // ------------------???????--------------------
+    
+//Nuevo index solo me muestra los tableros propios y asignados
     public IActionResult Index()
     {
         try
         {        
             if (!estaLogueado())
             {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
-            List<Tablero> tableros = new List<Tablero>();
-            if (isAdmin())
-            {
-                tableros = _repository.GetAllTableros(); 
-            }else
-            {
-                tableros = _repository.GetAllUsersTableros(obtenerId());
-            }
-                var tableroVM = new ListarTableroViewModel(tableros);
-                return View(tableroVM.ListarTableroVM);
+                List<Tablero> tablerosPropios = new List<Tablero>();
+                List<Tablero> tablerosAsignados = new List<Tablero>();
+                List<Usuario> usuarios = new List<Usuario>();
+                int id_usuario = obtenerId();
+                tablerosPropios = _repository.GetAllTablerosOfUser(id_usuario);
+                tablerosAsignados = _repository.GetAssignedTasksTableros(id_usuario);
+                usuarios = _usuarioRepository.GetAllUsuarios();
+                var tableroVM = new ListarTableroViewModel(tablerosPropios, tablerosAsignados, usuarios);
+                
+                return View(tableroVM);
         }
         catch (System.Exception ex)
         {
@@ -65,6 +69,31 @@ public class TableroController : Controller
             return RedirectToAction("Error");
         }
     }
+    // public IActionResult Index()
+    // {
+    //     try
+    //     {        
+    //         if (!estaLogueado())
+    //         {
+    //         return RedirectToRoute(new { controller = "Login", action = "Index" });
+    //         }
+    //         List<Tablero> tableros = new List<Tablero>();
+    //         if (isAdmin())
+    //         {
+    //             tableros = _repository.GetAllTableros(); 
+    //         }else
+    //         {
+    //             tableros = _repository.GetAllUsersTableros(obtenerId());
+    //         }
+    //             var tableroVM = new ListarTableroViewModel(tableros);
+    //             return View(tableroVM.ListarTableroVM);
+    //     }
+    //     catch (System.Exception ex)
+    //     {
+    //         _logger.LogError(ex.ToString());
+    //         return RedirectToAction("Error");
+    //     }
+    // }
 
     [HttpGet]
     public IActionResult CrearTablero()
