@@ -47,11 +47,11 @@
                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
                     </svg>
                     </a>
-                    <a asp-controller="Tarea" asp-action="ListarTareas" asp-route-idTablero = "@tablero.Id" class="btn btn-outline-dark">Ver
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                    </svg>
+                    <a asp-controller="Tarea" asp-action="ListarTareas" asp-route-idTablero = "@tablero.Id_tablero" class="btn btn-outline-dark">Ver
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                    </svg>
                     </a>
                 </td>
             </tr>
@@ -99,6 +99,6 @@
 }
 <hr>
 <div class="    d-grid gap-2 col-6 mx-auto">
-    <a class="btn btn-outline-primary" asp-area="" asp-controller="Tablero" asp-action="CrearTablero" >Crear Tablero</a> 
+    <a class="btn btn-outline-primary" asp-route-idUsuario=-999 asp-area="" asp-controller="Tablero" asp-action="CrearTablero" >Crear Tablero</a> 
     <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
 </div>

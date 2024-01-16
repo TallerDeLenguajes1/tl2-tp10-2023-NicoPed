@@ -8,9 +8,10 @@
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Tablero" asp-action="CrearTablero">
     <div class="form-group">
-        <label asp-for="@Model.Id_usuario_propietario"></label>
-        <input asp-for="@Model.Id_usuario_propietario" class="form-control" />
+        <label asp-for="@Model.UsuarioPropietario.Nombre_de_usuario">Usuario Propietario</label>
+        <input asp-for="@Model.UsuarioPropietario.Nombre_de_usuario" disabled class="form-control" />
     </div>
+        <input hidden asp-for="@Model.Id_usuario_propietario" value="@Model.UsuarioPropietario.Id_usuario">
     <div class="form-group">
         <label asp-for="@Model.Nombre"></label>
         <input asp-for="@Model.Nombre" class="form-control" />

@@ -69,43 +69,24 @@ public class TableroController : Controller
             return RedirectToAction("Error");
         }
     }
-    // public IActionResult Index()
-    // {
-    //     try
-    //     {        
-    //         if (!estaLogueado())
-    //         {
-    //         return RedirectToRoute(new { controller = "Login", action = "Index" });
-    //         }
-    //         List<Tablero> tableros = new List<Tablero>();
-    //         if (isAdmin())
-    //         {
-    //             tableros = _repository.GetAllTableros(); 
-    //         }else
-    //         {
-    //             tableros = _repository.GetAllUsersTableros(obtenerId());
-    //         }
-    //             var tableroVM = new ListarTableroViewModel(tableros);
-    //             return View(tableroVM.ListarTableroVM);
-    //     }
-    //     catch (System.Exception ex)
-    //     {
-    //         _logger.LogError(ex.ToString());
-    //         return RedirectToAction("Error");
-    //     }
-    // }
+
 
     [HttpGet]
-    public IActionResult CrearTablero()
+    public IActionResult CrearTablero(int idUsuario)
     {   
         try
         {
             
             if (!estaLogueado())
             {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
-            CrearTableroViewModel nuevoTableroVM = new CrearTableroViewModel();
+            if (idUsuario == -999)
+            {
+                idUsuario = obtenerId();
+            }
+            var usuario = _usuarioRepository.GetUsuarioById(idUsuario);
+            CrearTableroViewModel nuevoTableroVM = new CrearTableroViewModel(usuario);
             return View(nuevoTableroVM);
         }
         catch (System.Exception ex)
