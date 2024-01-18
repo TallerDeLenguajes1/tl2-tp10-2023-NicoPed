@@ -101,7 +101,7 @@ public class TableroController : Controller
     {
         try
         {                
-            if (!estaLowgueado())
+            if (!estaLogueado())
             {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
             }

@@ -65,6 +65,29 @@ public class TareaController : Controller
     }
 
     [HttpGet]
+    public IActionResult ListarTareasDeTablero(int idTablero){
+        try
+        {
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            List<Tarea> tareasAsignadas= new List<Tarea>();
+            List<Tarea> tareasNoAsignadas= new List<Tarea>();
+            tareasAsignadas = _repository.GetAllTablerosUsuarioTareas(idTablero, obtenerId());
+            tareasNoAsignadas = _repository.GetAllTablerosNoAsiggnedTareas(idTablero);
+
+            return View(new ListarTableroViewModel(tareasAsignadas,tareasNoAsignadas));
+        }
+        catch (System.Exception ex)
+        {
+            
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
+    }
+
+    [HttpGet]
     public IActionResult CrearTarea()
     {   
         try

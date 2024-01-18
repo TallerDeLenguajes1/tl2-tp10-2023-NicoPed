@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Tarea";
+}
+
+@model tl2_tp10_2023_NicoPed.ViewModels.ListarTareasDeTablero
+
+<h2>Tareas</h2>
+
+<table class="table table-green">
+    <thead>
+        <tr>
+            <th hidden>id_tarea</th>
+            <th>nombre</th>
+            <th>estado</th>
+            <th>descripcion</th>
+            <th>color</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarea in Model.Tareas)
+        {
+            <tr>
+                <td  hidden>@tarea.Id_tarea</td>
+                <td>@tarea.Nombre</td>
+                <td>@tarea.Estado</td>
+                <td>@tarea.Descripcion</td>
+                <td>@tarea.Color</td>
+                <td>
+                    <a asp-controller="Tarea" asp-action="EditarTarea" asp-route-idTarea="@tarea.Id_tarea">Editar</a>
+                    <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-idTarea="@tarea.Id_tarea" onclick="return confirm('¿Estas seguro que quieres eliminar esta Tarea?')">Eliminar</a>                      
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a class="btn btn-outline-primary" asp-area="" asp-controller="Tarea" asp-action="CrearTarea" >Crear Tarea</a> 
+    <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
+</div>

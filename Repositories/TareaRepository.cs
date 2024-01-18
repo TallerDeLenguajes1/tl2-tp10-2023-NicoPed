@@ -353,6 +353,111 @@ namespace tl2_tp10_2023_NicoPed
                 throw new Exception("ERROR AL ACTUALIZAR LA TAREA en la bd");
             }
         }
-    }
 
+        public List<Tarea> GetAllTablerosUsuarioTareas(int id_tablero, int id_usuario)
+        {
+            try
+            {
+                var queryString = @"SELECT id_tarea, id_tablero, nombre, descripcion, color, estado FROM
+                tablero INNER JOIN tarea USING (id_tablero)
+                INNER JOIN usuario ON id_usuario = id_usuario_asignado
+                WHERE id_tablero = @id_tablero AND id_usuario = @id_usu"; 
+                
+                var tareas = new List<Tarea>();
+                using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
+                    
+                    connection.Open();
+                    command.Parameters.Add(new SQLiteParameter("@id_usu",id_usuario));
+                    command.Parameters.Add(new SQLiteParameter("@id_tablero",id_tablero));
+                    
+                    using(SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read()) 
+                        {
+                            var tarea = new Tarea();
+                            tarea.Id_tarea = Convert.ToInt32(reader["id_tarea"]);
+                            tarea.Id_tablero = Convert.ToInt32(reader["id_tablero"]);
+                            tarea.Nombre = reader["nombre"].ToString();
+                            tarea.Descripcion = reader["descripcion"].ToString();
+                            tarea.Color = reader["color"].ToString();
+                            tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
+                            //CAMBIAR POR LA FORMA MAS SIMPLE
+                            if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            {
+                                tarea.Estado = (Tarea.estadoTarea)estado;
+                            }
+                            else
+                            {
+                                tarea.Estado = Tarea.estadoTarea.Ideas;
+                            }
+                            tareas.Add(tarea);
+                        }
+                    }
+                    connection.Close(); 
+                }
+                return tareas;
+            }
+            catch (System.Exception)
+            {
+                
+                throw new Exception("ERROR AL OBTENER LAS TAREAS DEL TABLERO DE USUARIO LA TAREA en la bd");
+            };
+            /*
+            Select * FROM tablero 
+Inner Join tarea USING (id_tablero)
+INNER JOIN usuario ON id_usuario = id_usuario_asignado
+WHERE id_tablero = 1;*/
+        }
+    }
+        public List<Tarea> GetAllTablerosNoAsiggnedTareas(int id_tablero){
+            try
+            {
+                var queryString = @"SELECT id_tarea, id_tablero, nombre, descripcion, color, estado FROM
+                tablero INNER JOIN tarea USING (id_tablero)
+                LEFT JOIN usuario ON id_usuario = id_usuario_asignado
+                WHERE id_tablero = @id_tablero AND id_usuario_asignado IS NULL"; 
+                
+                var tareas = new List<Tarea>();
+                using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    SQLiteCommand command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
+                    
+                    connection.Open();
+                    command.Parameters.Add(new SQLiteParameter("@id_tablero",id_tablero));
+                    
+                    using(SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read()) 
+                        {
+                            var tarea = new Tarea();
+                            tarea.Id_tarea = Convert.ToInt32(reader["id_tarea"]);
+                            tarea.Id_tablero = Convert.ToInt32(reader["id_tablero"]);
+                            tarea.Nombre = reader["nombre"].ToString();
+                            tarea.Descripcion = reader["descripcion"].ToString();
+                            tarea.Color = reader["color"].ToString();
+                            tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
+                            //CAMBIAR POR LA FORMA MAS SIMPLE
+                            if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            {
+                                tarea.Estado = (Tarea.estadoTarea)estado;
+                            }
+                            else
+                            {
+                                tarea.Estado = Tarea.estadoTarea.Ideas;
+                            }
+                            tareas.Add(tarea);
+                        }
+                    }
+                    connection.Close(); 
+                }
+                return tareas;
+            }
+            catch (System.Exception)
+            {
+                
+                throw new Exception("ERROR AL OBTENER LAS TAREAS DEL TABLERO DE USUARIO LA TAREA en la bd");
+            }
+        }
 }

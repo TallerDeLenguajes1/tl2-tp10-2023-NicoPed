@@ -15,7 +15,10 @@ namespace tl2_tp10_2023_NicoPed
     public void UpdateTarea(Tarea tarea);
     public List<Tarea> GetAllUsersTareas(int id_usuario);
     public List<Tarea> GetAllTablerosTareas(int id_tablero);
+    public List<Tarea> GetAllTablerosUsuarioTareas(int id_tablero, int id_usuario);
+    public List<Tarea> GetAllTablerosNoAsiggnedTareas(int id_tablero);
     public void AssingTareaToUser(int id_usuario, int id_Tarea);
     public int CantTareasEnUnEstado(Tarea.estadoTarea estado);
+    
 }
 }
