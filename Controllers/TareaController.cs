@@ -47,13 +47,7 @@ public class TareaController : Controller
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
             List<Tarea> tareas= new List<Tarea>();
-            if (isAdmin())
-            {
-                tareas = _repository.GetAllTareas();
-            }else
-            {
-                tareas = _repository.GetAllUsersTareas(obtenerId()); 
-            }
+            tareas = _repository.GetAllUsersTareas(obtenerId()); 
             var tareasVM = new ListarTareaViewModel(tareas);
             return View(tareasVM.ListarTareaVM);
         }
