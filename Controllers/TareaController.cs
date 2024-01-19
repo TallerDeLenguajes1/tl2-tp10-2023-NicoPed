@@ -8,11 +8,14 @@ namespace tl2_tp10_2023_NicoPed;
 public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
+    private IUsuarioRepository _usuarioRepository;
+
     private ITareaRepository _repository;
-    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository)
+    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository, IUsuarioRepository usuarioRepository)
     {
         _logger = logger;
         _repository = tareaRepository;
+        _usuarioRepository = usuarioRepository;
     }
 
     private bool estaLogueado(){
@@ -59,19 +62,28 @@ public class TareaController : Controller
     }
 
     [HttpGet]
-    public IActionResult ListarTareasDeTablero(int idTablero){
+    public IActionResult ListarTareasDeTablero(int idTablero, string esPropietario){
         try
         {
             if (!estaLogueado())
             {
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
+            var propietario = bool.Parse(esPropietario);
+            if (propietario)
+            {
+                List<Tarea> tareas = _repository.GetAllTablerosTareas(idTablero);
+                return View(new ListarTareasDeTableroViewModel(tareas, idTablero, propietario));
+
+            }
+                
             List<Tarea> tareasAsignadas= new List<Tarea>();
             List<Tarea> tareasNoAsignadas= new List<Tarea>();
             tareasAsignadas = _repository.GetAllTablerosUsuarioTareas(idTablero, obtenerId());
             tareasNoAsignadas = _repository.GetAllTablerosNoAsiggnedTareas(idTablero);
 
-            return View(new ListarTableroViewModel(tareasAsignadas,tareasNoAsignadas));
+            return View(new ListarTareasDeTableroViewModel(tareasAsignadas,tareasNoAsignadas, idTablero, propietario));
+            
         }
         catch (System.Exception ex)
         {
@@ -82,7 +94,7 @@ public class TareaController : Controller
     }
 
     [HttpGet]
-    public IActionResult CrearTarea()
+    public IActionResult CrearTarea(int idTablero)
     {   
         try
         {
@@ -91,8 +103,8 @@ public class TareaController : Controller
         {
             return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
-
-        return View(new CrearTareaViewModel());
+        var usuarios = _usuarioRepository.GetAllUsuarios();
+        return View(new CrearTareaViewModel(idTablero, usuarios));
         }
         catch (System.Exception ex)
         {

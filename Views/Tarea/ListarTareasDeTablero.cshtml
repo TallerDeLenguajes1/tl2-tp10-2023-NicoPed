@@ -2,11 +2,14 @@
     ViewData["Title"] = "Tarea";
 }
 
-@model tl2_tp10_2023_NicoPed.ViewModels.ListarTareasDeTablero
+@model tl2_tp10_2023_NicoPed.ViewModels.ListarTareasDeTableroViewModel
 
 <h2>Tareas</h2>
 
-<table class="table table-green">
+@if(Model.Tareas.Count == 0){
+    <h2>Este tablero NO tiene tareas</h2>
+}else{
+    <table class="table table-green">
     <thead>
         <tr>
             <th hidden>id_tarea</th>
@@ -26,15 +29,31 @@
                 <td>@tarea.Estado</td>
                 <td>@tarea.Descripcion</td>
                 <td>@tarea.Color</td>
+                @if(Model.EsPropietario){
                 <td>
-                    <a asp-controller="Tarea" asp-action="EditarTarea" asp-route-idTarea="@tarea.Id_tarea">Editar</a>
-                    <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-idTarea="@tarea.Id_tarea" onclick="return confirm('¿Estas seguro que quieres eliminar esta Tarea?')">Eliminar</a>                      
+                    <a asp-controller="Tarea" asp-action="EditarTarea" asp-route-idTarea="@tarea.Id_tarea">Editar
+
+                    </a>
+                    <a asp-controller="Tarea" asp-action="DeleteTarea" asp-route-idTarea="@tarea.Id_tarea" onclick="return confirm('¿Estas seguro que quieres eliminar esta Tarea?')">Eliminar
+
+                    </a>                      
                 </td>
+                }else{
+                    <td>
+                        <form asp-controller="Tarea" asp-action="ActualizarEstado" method="post">
+                            <select name="estadoNuevo" asp-items = "@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Tarea.estadoTarea>()">
+                            </select>
+                            <input hidden name="idTarea" value="@tarea.Id_tarea">
+                            <input type="submit" value="Cambiar">
+                        </form>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
+}
 <div class="d-grid gap-2 col-6 mx-auto">
-    <a class="btn btn-outline-primary" asp-area="" asp-controller="Tarea" asp-action="CrearTarea" >Crear Tarea</a> 
+    <a class="btn btn-outline-primary" asp-area="" asp-route-idTablero = "@Model.IdTablero" asp-controller="Tarea" asp-action="CrearTarea" >Crear Tarea</a> 
     <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
 </div>

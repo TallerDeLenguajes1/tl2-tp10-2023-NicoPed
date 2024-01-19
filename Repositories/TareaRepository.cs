@@ -3,8 +3,8 @@ using System.Data.SQLite;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_NicoPed;
 
-namespace tl2_tp10_2023_NicoPed
-{
+namespace tl2_tp10_2023_NicoPed;
+
     public class TareaRepository : ITareaRepository
     {
         //LA CADENA DE CONEXION!!!!!!!!
@@ -77,24 +77,29 @@ namespace tl2_tp10_2023_NicoPed
                             tarea.Nombre = reader["nombre"].ToString();
                             tarea.Descripcion = reader["descripcion"].ToString();
                             tarea.Color = reader["color"].ToString();
-                            tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                            if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            // tarea.Id_usuario_asignado =(reader["id_usuario_asignado"] == DBNull.Value) ? (int?)null : Convert.ToInt32(reader["id_usuario_asignado"]);
+                            if (int.TryParse(reader["id_usuario_asignado"].ToString(),out var usuasi))
                             {
-                                tarea.Estado = (Tarea.estadoTarea)estado;
-                            }
-                            else
+                                tarea.Id_usuario_asignado = usuasi;
+                            }else
                             {
-                                tarea.Estado = Tarea.estadoTarea.Ideas;
+                                tarea.Id_usuario_asignado = -999;
                             }
+                            tarea.Estado = (Tarea.estadoTarea)Convert.ToInt32(reader["estado"]);
+                            // if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            // {
+                            //     tarea.Estado = (Tarea.estadoTarea)estado;
+                            // }
+                            // else
+                            // {
+                            //     tarea.Estado = Tarea.estadoTarea.Ideas;
+                            // }
                             tareas.Add(tarea);
                         }
                     }
                     connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
                 }
-                if (tareas == null)
-                {
-                    throw new Exception("ERROR AL OBTENER LAS TAREAS DE UN TABLERO en la bd");
-                }
+
                 return tareas;
             }
             catch (System.Exception)
@@ -127,25 +132,19 @@ namespace tl2_tp10_2023_NicoPed
                             tarea.Nombre = reader["nombre"].ToString();
                             tarea.Descripcion = reader["descripcion"].ToString();
                             tarea.Color = reader["color"].ToString();
-                            tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                            
-                            if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            if (int.TryParse(reader["id_usuario_asignado"].ToString(),out var usuasi))
                             {
-                                tarea.Estado = (Tarea.estadoTarea)estado;
-                            }
-                            else
+                                tarea.Id_usuario_asignado = usuasi;
+                            }else
                             {
-                                tarea.Estado = Tarea.estadoTarea.Ideas;
+                                tarea.Id_usuario_asignado = -999;
                             }
-                            tareas.Add(tarea);
+                            tarea.Estado = (Tarea.estadoTarea)Convert.ToInt32(reader["estado"]);
                         }
                     }
                     connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
                 }
-                if (tareas == null)
-                {
-                    throw new Exception("ERROR AL OBTENER LAS TAREAS");
-                }
+
                 return tareas;
             }
             catch (System.Exception)
@@ -231,15 +230,14 @@ namespace tl2_tp10_2023_NicoPed
                             tarea.Nombre = reader["nombre"].ToString();
                             tarea.Descripcion = reader["descripcion"].ToString();
                             tarea.Color = reader["color"].ToString();
-                            tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                            if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            if (int.TryParse(reader["id_usuario_asignado"].ToString(),out var usuasi))
                             {
-                                tarea.Estado = (Tarea.estadoTarea)estado;
-                            }
-                            else
+                                tarea.Id_usuario_asignado = usuasi;
+                            }else
                             {
-                                tarea.Estado = Tarea.estadoTarea.Ideas;
+                                tarea.Id_usuario_asignado = -999;
                             }
+                            tarea.Estado = (Tarea.estadoTarea)Convert.ToInt32(reader["estado"]);
                         }
                     }
                     connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
@@ -358,7 +356,7 @@ namespace tl2_tp10_2023_NicoPed
         {
             try
             {
-                var queryString = @"SELECT id_tarea, id_tablero, nombre, descripcion, color, estado FROM
+                var queryString = @"SELECT id_tarea, tarea.id_tablero, tarea.nombre, tarea.descripcion, tarea.color, tarea.estado, tarea.id_usuario_asignado FROM
                 tablero INNER JOIN tarea USING (id_tablero)
                 INNER JOIN usuario ON id_usuario = id_usuario_asignado
                 WHERE id_tablero = @id_tablero AND id_usuario = @id_usu"; 
@@ -382,17 +380,14 @@ namespace tl2_tp10_2023_NicoPed
                             tarea.Nombre = reader["nombre"].ToString();
                             tarea.Descripcion = reader["descripcion"].ToString();
                             tarea.Color = reader["color"].ToString();
-                            tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                            //CAMBIAR POR LA FORMA MAS SIMPLE
-                            if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            if (int.TryParse(reader["id_usuario_asignado"].ToString(),out var usuasi))
                             {
-                                tarea.Estado = (Tarea.estadoTarea)estado;
-                            }
-                            else
+                                tarea.Id_usuario_asignado = usuasi;
+                            }else
                             {
-                                tarea.Estado = Tarea.estadoTarea.Ideas;
+                                tarea.Id_usuario_asignado = -999;
                             }
-                            tareas.Add(tarea);
+                            tarea.Estado = (Tarea.estadoTarea)Convert.ToInt32(reader["estado"]);
                         }
                     }
                     connection.Close(); 
@@ -410,11 +405,11 @@ Inner Join tarea USING (id_tablero)
 INNER JOIN usuario ON id_usuario = id_usuario_asignado
 WHERE id_tablero = 1;*/
         }
-    }
+    
         public List<Tarea> GetAllTablerosNoAsiggnedTareas(int id_tablero){
             try
             {
-                var queryString = @"SELECT id_tarea, id_tablero, nombre, descripcion, color, estado FROM
+                var queryString = @"SELECT id_tarea, tarea.id_tablero, tarea.nombre, tarea.descripcion, tarea.color, tarea.estado, tarea.id_usuario_asignado FROM
                 tablero INNER JOIN tarea USING (id_tablero)
                 LEFT JOIN usuario ON id_usuario = id_usuario_asignado
                 WHERE id_tablero = @id_tablero AND id_usuario_asignado IS NULL"; 
@@ -437,17 +432,14 @@ WHERE id_tablero = 1;*/
                             tarea.Nombre = reader["nombre"].ToString();
                             tarea.Descripcion = reader["descripcion"].ToString();
                             tarea.Color = reader["color"].ToString();
-                            tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                            //CAMBIAR POR LA FORMA MAS SIMPLE
-                            if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
+                            if (int.TryParse(reader["id_usuario_asignado"].ToString(),out var usuasi))
                             {
-                                tarea.Estado = (Tarea.estadoTarea)estado;
-                            }
-                            else
+                                tarea.Id_usuario_asignado = usuasi;
+                            }else
                             {
-                                tarea.Estado = Tarea.estadoTarea.Ideas;
+                                tarea.Id_usuario_asignado = -999;
                             }
-                            tareas.Add(tarea);
+                            tarea.Estado = (Tarea.estadoTarea)Convert.ToInt32(reader["estado"]);
                         }
                     }
                     connection.Close(); 
