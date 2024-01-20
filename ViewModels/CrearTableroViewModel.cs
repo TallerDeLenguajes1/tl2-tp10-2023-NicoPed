@@ -1,4 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_NicoPed;
 namespace tl2_tp10_2023_NicoPed.ViewModels;
 
@@ -21,5 +24,7 @@ public class CrearTableroViewModel
     public string? Nombre { get => nombre; set => nombre = value; }
     [Display(Name = "Descripción del tablero")]
     public string? Descripcion { get => descripcion; set => descripcion = value; }
-    public Usuario UsuarioPropietario { get => usuarioPropietario; }
+    [IgnoreDataMember]
+    [Display(Name = "Usuario Propietario")]
+    public Usuario UsuarioPropietario { get => usuarioPropietario; set => usuarioPropietario = value; }
 }

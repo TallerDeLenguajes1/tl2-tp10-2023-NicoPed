@@ -124,11 +124,12 @@ public class TareaController : Controller
             }
             if (!ModelState.IsValid)
             {
-                return RedirectToRoute(new { controller = "Tarea", action = "Index" });     
+                return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
             }
             Tarea newTarea = new Tarea(tarea);
             _repository.CreateTarea(newTarea);
-            return RedirectToAction("Index");
+            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+
         }
         catch (System.Exception ex)
         {
@@ -171,11 +172,11 @@ public class TareaController : Controller
             }
             if (!ModelState.IsValid)
             {
-            return RedirectToRoute(new { controller = "Tarea", action = "Index" });     
+                return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
             }
             var tareaActualizada = new Tarea(tarea);
             _repository.UpdateTarea(tareaActualizada);
-            return RedirectToAction("Index");
+            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
         }catch (System.Exception ex)
         {
             _logger.LogError(ex.ToString());
@@ -183,7 +184,7 @@ public class TareaController : Controller
         }
     }
 
-    //ELIMINAR
+    [HttpDelete]
     public IActionResult DeleteTarea(int idTarea)
     {  
         try
@@ -202,6 +203,26 @@ public class TareaController : Controller
         }
     }
 
+    [HttpPost]
+    public IActionResult ActualizarEstado(Tarea.estadoTarea estadoTarea, int idTarea){
+        try
+        {
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            _repository.ChangeEstado(estadoTarea, idTarea);
+            
+            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+//Probar esto:        return RedirectToAction("ListarTareas", new{idTablero = tarea.IdTablero, mostrarTareasAsignadasYNoAsignadas=true});
+
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

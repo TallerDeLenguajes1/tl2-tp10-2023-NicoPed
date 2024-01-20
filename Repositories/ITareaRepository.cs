@@ -19,6 +19,6 @@ namespace tl2_tp10_2023_NicoPed
     public List<Tarea> GetAllTablerosNoAsiggnedTareas(int id_tablero);
     public void AssingTareaToUser(int id_usuario, int id_Tarea);
     public int CantTareasEnUnEstado(Tarea.estadoTarea estado);
-    
+    public void ChangeEstado(Tarea.estadoTarea estado, int id_Tarea);
 }
 }

@@ -400,11 +400,6 @@ namespace tl2_tp10_2023_NicoPed;
                 
                 throw new Exception("ERROR AL OBTENER LAS TAREAS DEL TABLERO DE USUARIO LA TAREA en la bd");
             };
-            /*
-            Select * FROM tablero 
-Inner Join tarea USING (id_tablero)
-INNER JOIN usuario ON id_usuario = id_usuario_asignado
-WHERE id_tablero = 1;*/
         }
     
         public List<Tarea> GetAllTablerosNoAsiggnedTareas(int id_tablero){
@@ -454,4 +449,26 @@ WHERE id_tablero = 1;*/
                 throw new Exception("ERROR AL OBTENER LAS TAREAS DEL TABLERO DE USUARIO LA TAREA en la bd");
             }
         }
+
+    public void ChangeEstado(Tarea.estadoTarea estado, int id_Tarea)
+    {
+         try{    
+                var queryString = @"UPDATE tarea SET estado = @estado 
+                WHERE id_tarea = @id_tarea";
+                using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+                {
+                    var command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
+                    connection.Open();
+                    command.Parameters.Add(new SQLiteParameter("@id_tarea",id_Tarea));
+                    command.Parameters.Add(new SQLiteParameter("@estado",estado));
+                    command.ExecuteNonQuery();
+                    connection.Close();                     
+                }
+            }
+            catch (System.Exception)
+            {
+                
+                throw new Exception("ERROR AL ACTUALIZAR LA TAREA en la bd");
+            }
+    }
 }

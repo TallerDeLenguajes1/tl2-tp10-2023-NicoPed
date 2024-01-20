@@ -51,7 +51,7 @@
                 }else{
                     <td>
                         <form asp-controller="Tarea" asp-action="ActualizarEstado" method="post">
-                            <select name="estadoNuevo" asp-items = "@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Tarea.estadoTarea>()">
+                            <select name="estadoNuevo" value ="@tarea.Estado" asp-items = "@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Tarea.estadoTarea>()">
                             </select>
                             <input hidden name="idTarea" value="@tarea.Id_tarea">
                             <input type="submit" class="btn btn-outline-primary" value="Cambiar">
