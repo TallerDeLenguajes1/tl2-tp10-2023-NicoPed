@@ -19,40 +19,32 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown link
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                    </li>
-                        <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Tarea" asp-action="Index">Tarea</a>                            
-                        </li>
-                        <li class="nav-item">
-                            <a  class="nav-link text-dark" asp-area="" asp-controller="Tarea" asp-action="CrearTarea">Crear Tarea</a>
-                        </li>
-                        <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>                            
-                        </li>
-                        <li class="nav-item">
-                            <a  class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CrearUsuario">Crear Usuario</a>
-                        </li>
-                        <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="Index">Tablero</a>                            
-                        </li>
-                        <li class="nav-item">
-                            <a  class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="CrearTablero">Crear Tablero</a>
-                        </li>
+                        @if(string.IsNullOrEmpty(Context.Session.GetString("usuario")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Loguarse</a>
+                            </li>
+                            
+                        }else{
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Tarea" asp-action="Index"> Mis Tareas</a>                            
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="Index">Mis Tablero</a>                            
+                            </li>   
+                            @if (Context.Session.GetString("rol") == "Administrador"){
+                                <li class="nav-item">
+                                    <a  class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestion de Tablero</a>
+                                </li>
+                                <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Gestion de Usuario</a>                            
+                                </li>
+                            } 
+                        }
                     </ul>
                 </div>
             </div>
