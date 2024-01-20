@@ -11,13 +11,14 @@ public class EditarTareaViewModel{
     private string? color;
     private int id_usuario_asignado;
 
+    private List<Usuario> usuarios;
     private int id_tarea;
 
     public EditarTareaViewModel()
     {
     }
 
-    public EditarTareaViewModel(Tarea tarea)
+    public EditarTareaViewModel(Tarea tarea, List<Usuario> users)
     {
         Id_tablero = tarea.Id_tablero;
         Nombre = tarea.Nombre;
@@ -27,6 +28,7 @@ public class EditarTareaViewModel{
         Color = tarea.Color;
         Id_usuario_asignado = tarea.Id_usuario_asignado;
         Id_tarea = tarea.Id_tarea;
+        usuarios = users;
     }
 
     [Required(ErrorMessage = "Este campo es requerido.")]
@@ -55,4 +57,5 @@ public class EditarTareaViewModel{
     [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Id Tarea")]
     public int Id_tarea { get => id_tarea; set => id_tarea = value; }
+    public List<Usuario> Usuarios { get => usuarios; }
 }

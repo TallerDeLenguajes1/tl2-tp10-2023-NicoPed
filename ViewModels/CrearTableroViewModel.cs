@@ -7,7 +7,6 @@ public class CrearTableroViewModel
     private int id_usuario_propietario;
     private string? nombre;
     private string? descripcion;
-
     private Usuario usuarioPropietario;
     public CrearTableroViewModel()
     {

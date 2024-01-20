@@ -148,7 +148,8 @@ public class TareaController : Controller
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
             var tarea = _repository.GetTareaById(idTarea);
-            var tareasVM = new EditarTareaViewModel(tarea);
+            var users = _usuarioRepository.GetAllUsuarios();
+            var tareasVM = new EditarTareaViewModel(tarea, users);
             return View(tareasVM);
         }
         catch (System.Exception ex)
