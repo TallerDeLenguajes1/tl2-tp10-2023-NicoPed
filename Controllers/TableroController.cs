@@ -25,7 +25,7 @@ public class TableroController : Controller
         }
         return false;
     }
-    private bool isAdmin(){
+    private bool esAdmin(){
        if (HttpContext.Session.GetString("rol") == "Administrador")
        {
             return true;
@@ -186,6 +186,33 @@ public class TableroController : Controller
         }
     }
 
+    [HttpGet]
+    public IActionResult GestionDeTablero(){
+        try
+        {        
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!esAdmin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                
+            }
+                List<Tablero> tableros = new List<Tablero>();
+                tableros = _repository.GetAllTableros();
+                List<Usuario> usuarios = new List<Usuario>();
+                usuarios = _usuarioRepository.GetAllUsuarios();
+                
+                var tableroVM = new GestionDeTableroViewModel(tableros, usuarios);
+                return View(tableroVM);
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
