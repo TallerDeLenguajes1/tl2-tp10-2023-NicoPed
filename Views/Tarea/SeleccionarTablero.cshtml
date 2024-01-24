@@ -1,0 +1,18 @@
+@{ 
+    ViewData["Title"] = "Crear Tablero";
+}
+
+@model List<tl2_tp10_2023_NicoPed.Tablero>
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-controller="Tarea" asp-action="SeleccionarTablero" method="post">
+    <select name="idTablero">
+
+    @foreach(var tablero in Model){
+                <option value="@tablero.Id_tablero">@tablero.Nombre</option>
+            }
+    </select>
+    <input type="submit" class="btn btn-outline-primary" value="Seleccionar">
+</form>
+

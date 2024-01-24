@@ -213,6 +213,7 @@ public class TableroController : Controller
             return RedirectToAction("Error");
         }
     }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

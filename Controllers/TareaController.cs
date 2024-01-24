@@ -251,6 +251,53 @@ public class TareaController : Controller
             return RedirectToAction("Error");
         }
     }
+
+    [HttpGet]
+    public IActionResult SeleccionarTablero(){
+        try
+        {
+            
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!esAdmin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                
+            }   
+            var tableros = _TableroRepository.GetAllTableros();
+            return View(tableros);
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
+    }
+    // SI NO FUNCIONA CREO QUE DEBERIA MANDAR UN VIEWMODEL SeleccionarTableroVM con el id y nombre nomás
+    [HttpPost]
+    public IActionResult SeleccionarTablero(int idTablero){
+        try
+        {
+            
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!esAdmin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                
+            }   
+            return CrearTarea(idTablero);
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
