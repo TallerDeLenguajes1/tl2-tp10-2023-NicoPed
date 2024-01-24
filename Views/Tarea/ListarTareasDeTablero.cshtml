@@ -14,14 +14,10 @@
         <tr>
             <th hidden>id_tarea</th>
             <th>nombre</th>
-            <th>estado</th>
             <th>descripcion</th>
             <th>color</th>
-            @if(Model.EsPropietario){
-                <th></th>
-            }else{
-                <th>estado</th>
-            }
+            <th>Estado Actual</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -30,9 +26,9 @@
             <tr>
                 <td  hidden>@tarea.Id_tarea</td>
                 <td>@tarea.Nombre</td>
-                <td>@tarea.Estado</td>
                 <td>@tarea.Descripcion</td>
                 <td>@tarea.Color</td>
+                <td>@tarea.Estado</td>
                 @if(Model.EsPropietario){
                 <td>
                     <a asp-controller="Tarea" asp-action="EditarTarea" class="btn btn-outline-info" asp-route-idTarea="@tarea.Id_tarea">Editar
@@ -51,7 +47,7 @@
                 }else{
                     <td>
                         <form asp-controller="Tarea" asp-action="ActualizarEstado" method="post">
-                            <select name="estadoNuevo" value ="@tarea.Estado" asp-items = "@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Tarea.estadoTarea>()">
+                            <select name="estadoTarea" value ="@tarea.Estado" asp-items = "@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Tarea.estadoTarea>()">
                             </select>
                             <input hidden name="idTarea" value="@tarea.Id_tarea">
                             <input type="submit" class="btn btn-outline-primary" value="Cambiar">
@@ -66,9 +62,9 @@
                 <tr>
                 <td  hidden>@tarea.Id_tarea</td>
                 <td>@tarea.Nombre</td>
-                <td>@tarea.Estado</td>
                 <td>@tarea.Descripcion</td>
                 <td>@tarea.Color</td>
+                <td>@tarea.Estado</td>
                 <td>TAREA NO ASIGNADA</td>
                 </tr>
             }

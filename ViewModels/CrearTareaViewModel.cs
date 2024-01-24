@@ -10,8 +10,7 @@ public class CrearTareaViewModel{
     private string? descripcion;
     private string? color;
     private int id_usuario_asignado;
-
-    private List<Usuario> usuarios;
+    private List<Usuario>? usuarios;
     public CrearTareaViewModel()
     {
     }
@@ -40,5 +39,5 @@ public class CrearTareaViewModel{
     [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Estado")]
     public Tarea.estadoTarea Estado { get => estado; set => estado = value; }
-    public List<Usuario> Usuarios { get => usuarios;}
+    public List<Usuario>? Usuarios { get => usuarios;}
 }

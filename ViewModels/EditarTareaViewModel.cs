@@ -11,7 +11,7 @@ public class EditarTareaViewModel{
     private string? color;
     private int id_usuario_asignado;
 
-    private List<Usuario> usuarios;
+    private List<Usuario>? usuarios;
     private int id_tarea;
 
     public EditarTareaViewModel()
@@ -57,5 +57,5 @@ public class EditarTareaViewModel{
     [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Id Tarea")]
     public int Id_tarea { get => id_tarea; set => id_tarea = value; }
-    public List<Usuario> Usuarios { get => usuarios; }
+    public List<Usuario>? Usuarios { get => usuarios; }
 }
