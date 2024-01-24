@@ -290,7 +290,10 @@ public class TareaController : Controller
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
                 
             }   
-            return CrearTarea(idTablero);
+            // debo de ver como mando el id Tablero a crearTablero
+            // CrearTarea(idTablero);
+            return RedirectToRoute(new { controller = "Tarea", action = "CrearTarea", idTablero = idTablero });
+
         }
         catch (System.Exception ex)
         {

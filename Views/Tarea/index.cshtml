@@ -12,9 +12,9 @@
         <tr>
             <th hidden>id_tarea</th>
             <th>nombre</th>
-            <th>estado</th>
             <th>descripcion</th>
             <th>color</th>
+            <th>Estado Actual</th>
             <th></th>
         </tr>
     </thead>
@@ -24,9 +24,9 @@
             <tr>
                 <td hidden>@tarea.Id_tarea</td>
                 <td>@tarea.Nombre</td>
-                <td>@tarea.Estado</td>
                 <td>@tarea.Descripcion</td>
                 <td>@tarea.Color</td>
+                <td>@tarea.Estado</td>
                 <td>
                     <td>
                         <form asp-controller="Tarea" asp-action="ActualizarEstado" method="post">
