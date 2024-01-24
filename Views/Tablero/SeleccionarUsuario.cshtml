@@ -1,0 +1,17 @@
+@{ 
+    ViewData["Title"] = "Seleccionar Usuario";
+}
+
+@model tl2_tp10_2023_NicoPed.ViewModels.ListarUsuarioViewModel
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-controller="Tablero" asp-action="SeleccionarUsuario" method="post">
+    <select name="idUsuario">
+    @foreach(var usuario in Model.ListarUsariosVM){
+                <option value="@usuario.Id_usuario">@usuario.Nombre_de_usuario</option>
+            }
+    </select>
+    <input type="submit" class="btn btn-outline-primary" value="Seleccionar">
+</form>
+

@@ -143,7 +143,6 @@ public class TableroController : Controller
             return RedirectToAction("Error");
         }
     }
-//DUDAAAAAAAAAAAAAAA DEBO MANDAR EL ID_USU_PROP
     [HttpPost]
     public IActionResult EditarTablero(EditarTableroViewModel tableroVW)
     {   
@@ -214,6 +213,54 @@ public class TableroController : Controller
         }
     }
     
+    [HttpGet]
+    public IActionResult SeleccionarUsuario(){
+        try
+        {        
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!esAdmin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                
+            }
+                List<Usuario> usuarios = new List<Usuario>();
+                usuarios = _usuarioRepository.GetAllUsuarios();
+                var usuariosVM = new ListarUsuarioViewModel(usuarios);
+                return View(usuariosVM);
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
+    
+    }
+
+    [HttpPost]
+    public IActionResult SeleccionarUsuario(int idUsuario){
+        try
+        {        
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!esAdmin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                
+            }
+            return RedirectToRoute(new { controller = "Tablero", action = "CrearTablero", idUsuario = idUsuario });
+
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
+        }
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
