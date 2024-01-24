@@ -9,8 +9,8 @@ public class ListarTareaViewModel{
         ListarTareaVM = new List<TareaViewModel>();
         foreach (var tarea in tareas)
         {
-            var UsuarioViewM = new TareaViewModel(tarea);
-            ListarTareaVM.Add(UsuarioViewM);
+            var tareaViewM = new TareaViewModel(tarea);
+            ListarTareaVM.Add(tareaViewM);
         }
     }
     public List<TareaViewModel> ListarTareaVM { get => listarTareaVM; set => listarTareaVM = value; }

@@ -140,6 +140,7 @@ namespace tl2_tp10_2023_NicoPed;
                                 tarea.Id_usuario_asignado = -999;
                             }
                             tarea.Estado = (Tarea.estadoTarea)Convert.ToInt32(reader["estado"]);
+                            tareas.Add(tarea);
                         }
                     }
                     connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!

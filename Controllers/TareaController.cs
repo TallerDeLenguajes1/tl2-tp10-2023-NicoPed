@@ -9,13 +9,15 @@ public class TareaController : Controller
 {
     private readonly ILogger<TareaController> _logger;
     private IUsuarioRepository _usuarioRepository;
+    private ITableroRepository _TableroRepository;
 
     private ITareaRepository _repository;
-    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository, IUsuarioRepository usuarioRepository)
+    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository, IUsuarioRepository usuarioRepository, ITableroRepository tableroRepository)
     {
         _logger = logger;
         _repository = tareaRepository;
         _usuarioRepository = usuarioRepository;
+        _TableroRepository = tableroRepository;
     }
 
     private bool estaLogueado(){
@@ -25,7 +27,7 @@ public class TareaController : Controller
         }
         return false;
     }
-    private bool isAdmin(){
+    private bool esAdmin(){
        if (HttpContext.Session.GetString("rol") == "Administrador")
        {
             return true;
@@ -52,7 +54,7 @@ public class TareaController : Controller
             List<Tarea> tareas= new List<Tarea>();
             tareas = _repository.GetAllUsersTareas(obtenerId()); 
             var tareasVM = new ListarTareaViewModel(tareas);
-            return View(tareasVM.ListarTareaVM);
+            return View(tareasVM);
         }
         catch (System.Exception ex)
         {
@@ -221,6 +223,32 @@ public class TareaController : Controller
         {
             
             throw;
+        }
+    }
+    [HttpGet]
+    public IActionResult GestionDeTarea()
+    {
+        try
+        {   
+            if (!estaLogueado())
+            {
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
+            }
+            if (!esAdmin())
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            }
+            List<Tarea> tareas= new List<Tarea>();
+            tareas = _repository.GetAllTareas();
+            var tableros = new List<Tablero> ();
+            tableros = _TableroRepository.GetAllTableros();
+            var tareasVM = new GestionDeTareaViewModel(tareas, tableros);
+            return View(tareasVM);
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return RedirectToAction("Error");
         }
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
