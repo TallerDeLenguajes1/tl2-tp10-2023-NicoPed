@@ -8,10 +8,10 @@
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Tablero" asp-action="CrearTablero">
     <div class="form-group">
-        <label asp-for="@Model.UsuarioPropietario.Nombre_de_usuario">Usuario Propietario</label>
-        <input asp-for="@Model.UsuarioPropietario.Nombre_de_usuario" disabled class="form-control" />
+        <label asp-for="@Model.NombreUsuarioPropietario">Usuario Propietario</label>
+        <input asp-for="@Model.NombreUsuarioPropietario" disabled class="form-control" />
     </div>
-        <input hidden asp-for="@Model.Id_usuario_propietario" value="@Model.UsuarioPropietario.Id_usuario">
+        <input hidden asp-for="@Model.Id_usuario_propietario" value="@Model.IdUsuarioPropietario">
     <div class="form-group">
         <label asp-for="@Model.Nombre"></label>
         <input asp-for="@Model.Nombre" class="form-control" />
@@ -20,7 +20,7 @@
         <label asp-for="@Model.Descripcion"></label>
         <input asp-for="@Model.Descripcion" class="form-control" />
     </div>
-    <input hidden asp-for="@Model.UsuarioPropietario" value="@Model.UsuarioPropietario">
+    <input hidden asp-for="@Model.NombreUsuarioPropietario" >
     <button type="submit" class="btn btn-outline-primary">Enviar</button>
 </form>
 
