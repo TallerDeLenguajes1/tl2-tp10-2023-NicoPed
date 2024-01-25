@@ -409,7 +409,7 @@ namespace tl2_tp10_2023_NicoPed;
                 var queryString = @"SELECT id_tarea, tarea.id_tablero, tarea.nombre, tarea.descripcion, tarea.color, tarea.estado, tarea.id_usuario_asignado FROM
                 tablero INNER JOIN tarea USING (id_tablero)
                 LEFT JOIN usuario ON id_usuario = id_usuario_asignado
-                WHERE id_tablero = @id_tablero AND id_usuario_asignado IS NULL"; 
+                WHERE id_tablero = @id_tablero AND id_usuario_asignado = -999"; 
                 
                 var tareas = new List<Tarea>();
                 using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))

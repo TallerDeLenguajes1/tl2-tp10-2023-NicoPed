@@ -14,7 +14,9 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.RolUsuario"></label>
-        <input asp-for="@Model.RolUsuario" class="form-control" />
+        <select asp-for="@Model.RolUsuario" value="@Model.RolUsuario" class="form-select" asp-items="@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Rol>()">
+
+        </select>
     </div>
     <button class="btn btn-outline-primary" type="submit">Enviar</button>
 </form>
