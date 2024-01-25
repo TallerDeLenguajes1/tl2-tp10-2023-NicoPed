@@ -186,7 +186,7 @@ public class TareaController : Controller
         }
     }
 
-    [HttpDelete]
+    // [HttpDelete]
     public IActionResult DeleteTarea(int idTarea)
     {  
         try
