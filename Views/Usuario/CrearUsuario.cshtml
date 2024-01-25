@@ -10,17 +10,20 @@
     <div class="form-group">
         <label asp-for="@Model.Nombre_de_usuario"></label>
         <input asp-for="@Model.Nombre_de_usuario" class="form-control" />
+        <span asp-validation-for="@Model.Nombre_de_usuario" class="text-danger"></span>
+    
     </div>
         <div class="form-group">
         <label asp-for="@Model.Contrasenia"></label>
         <input asp-for="@Model.Contrasenia" class="form-control" />
+        <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.RolUsuario"></label>
         <select asp-for="@Model.RolUsuario" class="form-select" asp-items="@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Rol>()">
-
+            
         </select>
-        @* <input asp-for="@Model.RolUsuario" class="form-control" /> *@
+        <span asp-validation-for="@Model.RolUsuario" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-outline-primary">Enviar</button>
 </form>

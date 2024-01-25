@@ -39,15 +39,12 @@ public class EditarTareaViewModel{
     [Display(Name = "Nombre")]
     public string? Nombre { get => nombre; set => nombre = value; }
     
-    [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Descripcion")]
     public string? Descripcion { get => descripcion; set => descripcion = value; }
     
-    [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Color")]
     public string? Color { get => color; set => color = value; }
     
-    [Required(ErrorMessage = "Este campo es requerido.")]
     [Display(Name = "Id Usuario Asignado")]
     public int Id_usuario_asignado { get => id_usuario_asignado; set => id_usuario_asignado = value; }
 
