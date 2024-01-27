@@ -3,6 +3,27 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">BIENVENIDO</h1>
+    @if(string.IsNullOrEmpty(Context.Session.GetString("usuario")))
+    {
+            <h2 class="display-4">Inicie Sesión</h2>
+            <a class="btn btn-outline-primary"  asp-area="" asp-controller="Login" asp-action="Index">Iniciar sesión</a> 
+
+    }else{
+
+            <h2 class="display-4"> @Context.Session.GetString("usuario")</h2>
+            <div>
+            <a class="btn btn-outline-primary"  asp-area="" asp-controller="Tablero" asp-action="Index">Mis Tableros</a> 
+            <a class="btn btn-outline-secondary"  asp-area="" asp-controller="Tarea" asp-action="Index">Mis Tareas</a> 
+            </div>
+            //Aqui una imagen bonita supongo
+        @if (Context.Session.GetString("rol") == (Rol.Administrador).ToString()){
+            <div>
+            <hr>
+            <a class="btn btn-outline-primary"  asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestión De Tablero</a> 
+            <a class="btn btn-outline-secondary"  asp-area="" asp-controller="Tarea" asp-action="GestionDeTarea">Gestión De Tarea</a> 
+            <a class="btn btn-outline-info"  asp-area="" asp-controller="Usuario" asp-action="Index">Gestión De Usuario</a> 
+            </div>
+        } 
+    }
 </div>
