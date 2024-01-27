@@ -7,10 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Tarea" asp-action="CrearTarea">
-    @* <div class="form-group">
-        <label asp-for="@Model.Id_tablero"></label>
-        <input asp-for="@Model.Id_tablero" class="form-control" disabled value=@Model.Id_tablero/>
-    </div> *@
+
     <input hidden asp-for="@Model.Id_tablero">
     <div class="form-group">
         <label asp-for="@Model.Nombre"></label>

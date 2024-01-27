@@ -17,7 +17,7 @@ public class UsuarioController : Controller
 
     }
     private bool estaLogueado(){
-        if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == "Administrador" || HttpContext.Session.GetString("rol") == "Operador"))
+        if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == (Rol.Administrador).ToString() || HttpContext.Session.GetString("rol") == (Rol.Operador).ToString()))
         {
             return true;
         }
@@ -25,7 +25,7 @@ public class UsuarioController : Controller
     }
     private bool isAdmin(){
         string? rol = HttpContext.Session.GetString("rol");
-       if (rol == "Administrador")
+       if (rol == (Rol.Administrador).ToString())
        {
             return true;
        }

@@ -36,7 +36,7 @@
                             <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="Index">Mis Tablero</a>                            
                             </li>   
-                            @if (Context.Session.GetString("rol") == "Administrador"){
+                            @if (Context.Session.GetString("rol") == (Rol.Administrador).ToString()){
                                 <li class="nav-item">
                                     <a  class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestion de Tablero</a>
                                 </li>

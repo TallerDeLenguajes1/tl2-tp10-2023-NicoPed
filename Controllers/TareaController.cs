@@ -21,14 +21,14 @@ public class TareaController : Controller
     }
 
     private bool estaLogueado(){
-        if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == "Administrador" || HttpContext.Session.GetString("rol") == "Operador"))
+        if (HttpContext.Session !=null && (HttpContext.Session.GetString("rol") == (Rol.Administrador).ToString() || HttpContext.Session.GetString("rol") == (Rol.Operador).ToString()))
         {
             return true;
         }
         return false;
     }
     private bool esAdmin(){
-       if (HttpContext.Session.GetString("rol") == "Administrador")
+       if (HttpContext.Session.GetString("rol") == (Rol.Administrador).ToString())
        {
             return true;
        }
