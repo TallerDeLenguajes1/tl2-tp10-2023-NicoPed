@@ -26,7 +26,7 @@
                 <td>@tarea.Nombre</td>
                 <td>@tarea.Estado</td>
                 <td>@tarea.Descripcion</td>
-                <td>@tarea.Color</td>
+                <td style="background-color: @tarea.Color">@tarea.Color</td>
                 <td>@tarea.NombreTablero</td>
                 <td>
                     <a asp-controller="Tarea" asp-action="EditarTarea" class="btn btn-outline-info" asp-route-idTarea="@tarea.Id_tarea">Editar
