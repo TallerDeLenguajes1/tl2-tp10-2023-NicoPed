@@ -130,7 +130,7 @@ public class TareaController : Controller
             }
             Tarea newTarea = new Tarea(tarea);
             _repository.CreateTarea(newTarea);
-            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+            return RedirectToRoute(new { controller = "Tarea", action = "ListarTareasDeTablero", idTablero = newTarea.Id_tablero, esPropietario = "True" });     
 
         }
         catch (System.Exception ex)
@@ -178,7 +178,7 @@ public class TareaController : Controller
             }
             var tareaActualizada = new Tarea(tarea);
             _repository.UpdateTarea(tareaActualizada);
-            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+            return RedirectToRoute(new { controller = "Tarea", action = "ListarTareasDeTablero", idTablero = tareaActualizada.Id_tablero, esPropietario = "True" });     
         }catch (System.Exception ex)
         {
             _logger.LogError(ex.ToString());
@@ -196,7 +196,8 @@ public class TareaController : Controller
             return RedirectToRoute(new { controller = "Login", action = "Index" });
         }
         _repository.RemoveTarea(idTarea);
-        return RedirectToAction("Index");
+        var tarea = _repository.GetTareaById(idTarea);
+        return RedirectToRoute(new { controller = "Tarea", action = "ListarTareasDeTablero", idTablero = tarea.Id_tablero, esPropietario = "True" });     
         }
         catch (System.Exception ex)
         {
@@ -214,9 +215,7 @@ public class TareaController : Controller
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
             _repository.ChangeEstado(estadoTarea, idTarea);
-            
-            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
-//Probar esto:        return RedirectToAction("ListarTareas", new{idTablero = tarea.IdTablero, mostrarTareasAsignadasYNoAsignadas=true});
+            return RedirectToRoute(new { controller = "Tarea", action = "Index"});     
 
         }
         catch (System.Exception)

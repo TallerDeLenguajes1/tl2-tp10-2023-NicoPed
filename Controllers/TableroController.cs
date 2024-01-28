@@ -103,14 +103,15 @@ public class TableroController : Controller
         {                
             if (!estaLogueado())
             {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
             if (!ModelState.IsValid)
             {
-            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+                return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
             }
             Tablero newTablero = new Tablero(tablero);
             _repository.CreateTablero(newTablero);
+            
             return RedirectToAction("Index");
         }
         catch (System.Exception ex)
