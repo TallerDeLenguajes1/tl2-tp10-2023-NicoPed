@@ -9,13 +9,13 @@
 <form asp-controller="Usuario" asp-action="CrearUsuario">
     <div class="form-group">
         <label asp-for="@Model.Nombre_de_usuario"></label>
-        <input asp-for="@Model.Nombre_de_usuario" class=" "form-control" />
+        <input asp-for="@Model.Nombre_de_usuario" class="form-control" />
         <span asp-validation-for="@Model.Nombre_de_usuario" class="text-danger"></span>
     
     </div>
         <div class="form-group">
         <label asp-for="@Model.Contrasenia"></label>
-        <input asp-for="@Model.Contrasenia" class="form-control" />
+        <input type="password" asp-for="@Model.Contrasenia" class="form-control" />
         <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
     </div>
     <div class="form-group">

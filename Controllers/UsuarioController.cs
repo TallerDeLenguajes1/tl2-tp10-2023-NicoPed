@@ -94,7 +94,6 @@ public class UsuarioController : Controller
         }
     }
    
-   //MODIFICAR
     [HttpGet]
     public IActionResult EditarUsuario(int idUsuario)
     {  

@@ -1,4 +1,4 @@
-
+using Encrypt.Net.Text;
 using System.Data.SQLite;
 
 namespace tl2_tp10_2023_NicoPed
@@ -25,7 +25,7 @@ namespace tl2_tp10_2023_NicoPed
                 var command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
                 connection.Open();
                 command.Parameters.Add(new SQLiteParameter("@nombre",usuario.Nombre_de_usuario));
-                command.Parameters.Add(new SQLiteParameter("@contrasenia",usuario.Contrasenia));
+                command.Parameters.Add(new SQLiteParameter("@contrasenia",Cifrado.sha256(usuario.Contrasenia).Hash));                
                 command.Parameters.Add(new SQLiteParameter("@rol",usuario.RolDeUsuario));
                 command.ExecuteNonQuery();
                 connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
@@ -143,7 +143,7 @@ namespace tl2_tp10_2023_NicoPed
                     var command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
                     connection.Open();
                     command.Parameters.Add(new SQLiteParameter("@nombre",usuario.Nombre_de_usuario));
-                    command.Parameters.Add(new SQLiteParameter("@contrasenia",usuario.Contrasenia));
+                    command.Parameters.Add(new SQLiteParameter("@contrasenia",Cifrado.sha256(usuario.Contrasenia).Hash));                
                     command.Parameters.Add(new SQLiteParameter("@rol",usuario.RolDeUsuario));
                     command.Parameters.Add(new SQLiteParameter("@id",usuario.Id_usuario));
                     command.ExecuteNonQuery();
@@ -164,11 +164,12 @@ namespace tl2_tp10_2023_NicoPed
             using(SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 connection.Open();
-                string queryString = @"SELECT * FROM Usuario WHERE nombre_de_usuario = @nombreUsuario AND contrasenia = @contraseniaUsuario;";
+                string queryString = @"SELECT * FROM Usuario WHERE nombre_de_usuario = @nombreUsuario AND contrasenia = @contrasenia;";
                 
                 var command = new SQLiteCommand(queryString, connection);
                 command.Parameters.Add(new SQLiteParameter("@nombreUsuario", nombre));
-                command.Parameters.Add(new SQLiteParameter("@contraseniaUsuario", contrasenia));
+                // command.Parameters.Add(new SQLiteParameter("@contrasenia",contrasenia));
+                command.Parameters.Add(new SQLiteParameter("@contrasenia",Cifrado.sha256(contrasenia).Hash));                
                 using(var reader = command.ExecuteReader())
                 {
                     if(reader.Read()){
