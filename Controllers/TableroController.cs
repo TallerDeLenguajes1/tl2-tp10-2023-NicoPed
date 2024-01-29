@@ -44,7 +44,7 @@ public class TableroController : Controller
 // ------------------???????--------------------
     
 //Nuevo index solo me muestra los tableros propios y asignados
-    public IActionResult Index()
+    public IActionResult Index(string idUsuario)
     {
         try
         {        
@@ -55,7 +55,8 @@ public class TableroController : Controller
                 List<Tablero> tablerosPropios = new List<Tablero>();
                 List<Tablero> tablerosAsignados = new List<Tablero>();
                 List<Usuario> usuarios = new List<Usuario>();
-                int id_usuario = obtenerId();
+                int id_usuario = int.Parse(idUsuario);
+                // obtenerId();
                 tablerosPropios = _repository.GetAllTablerosOfUser(id_usuario);
                 tablerosAsignados = _repository.GetAssignedTasksTableros(id_usuario);
                 usuarios = _usuarioRepository.GetAllUsuarios();

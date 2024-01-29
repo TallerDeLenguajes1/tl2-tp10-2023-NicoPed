@@ -43,7 +43,7 @@ public class TareaController : Controller
         }
         return id;
     }
-    public IActionResult Index()
+    public IActionResult Index(string idUsuario)
     {
         try
         {   
@@ -52,7 +52,8 @@ public class TareaController : Controller
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
             List<Tarea> tareas= new List<Tarea>();
-            tareas = _repository.GetAllUsersTareas(obtenerId()); 
+            int id_usuario = int.Parse(idUsuario);
+            tareas = _repository.GetAllUsersTareas(id_usuario); 
             var tareasVM = new ListarTareaViewModel(tareas);
             return View(tareasVM);
         }
