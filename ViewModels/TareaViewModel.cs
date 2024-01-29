@@ -8,7 +8,7 @@ public class TareaViewModel{
     private Tarea.estadoTarea estado;
     private string? descripcion;
     private string? color;
-
+    private int id_usuario_asignado;
     public TareaViewModel()
     {
     }
@@ -20,6 +20,7 @@ public class TareaViewModel{
         Descripcion = tarea.Descripcion;
         Color = tarea.Color;
         Estado = tarea.Estado;
+        id_usuario_asignado = tarea.Id_usuario_asignado;
     }
 
     public string? Nombre { get => nombre; set => nombre = value; }
@@ -27,4 +28,5 @@ public class TareaViewModel{
     public string? Color { get => color; set => color = value; }
     public Tarea.estadoTarea Estado { get => estado; set => estado = value; }
     public int Id_tarea { get => id_tarea; set => id_tarea = value; }
+    public int Id_usuario_asignado { get => id_usuario_asignado; set => id_usuario_asignado = value; }
 }
