@@ -34,7 +34,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Tarea" asp-action="Index" asp-route-idUsuario = "@Context.Session.GetString("id")" > Mis Tareas</a>                            
                             </li>
                             <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="Index" asp-route-idUsuario = "@Context.Session.GetString("id")">Mis Tablero</a>                            
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Tablero" asp-action="Index" asp-route-idUsuario = "@Context.Session.GetString("id")">Mis Tableros</a>                            
                             </li>   
                             @if (Context.Session.GetString("rol") == (Rol.Administrador).ToString()){
                                 <li class="nav-item">

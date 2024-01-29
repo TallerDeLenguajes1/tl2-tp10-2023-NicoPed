@@ -65,7 +65,7 @@ public class TareaController : Controller
     }
 
     [HttpGet]
-    public IActionResult ListarTareasDeTablero(int idTablero, string esPropietario){
+    public IActionResult ListarTareasDeTablero(int idTablero, string esPropietario, int idUsuario){
         try
         {
             if (!estaLogueado())
@@ -82,7 +82,7 @@ public class TareaController : Controller
                 
             List<Tarea> tareasAsignadas= new List<Tarea>();
             List<Tarea> tareasNoAsignadas= new List<Tarea>();
-            tareasAsignadas = _repository.GetAllTablerosUsuarioTareas(idTablero, obtenerId());
+            tareasAsignadas = _repository.GetAllTablerosUsuarioTareas(idTablero, idUsuario);
             tareasNoAsignadas = _repository.GetAllTablerosNoAsiggnedTareas(idTablero);
 
             return View(new ListarTareasDeTableroViewModel(tareasAsignadas,tareasNoAsignadas, idTablero, propietario));

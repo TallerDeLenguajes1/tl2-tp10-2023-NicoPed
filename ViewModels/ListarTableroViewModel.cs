@@ -4,9 +4,10 @@ namespace tl2_tp10_2023_NicoPed.ViewModels;
 public class ListarTableroViewModel{
     private List<TableroPropioViewModel> tablerosPropiosVM;
     private List<TableroAsignadoViewModel> tablerosAsignadosVM;
-    public ListarTableroViewModel(List<Tablero> tablerosPropios,List<Tablero> tablerosAsignados, List<Usuario> usuarios)
+    private int id_usuario;
+    public ListarTableroViewModel(List<Tablero> tablerosPropios,List<Tablero> tablerosAsignados, List<Usuario> usuarios, int idUsuario)
     {
-
+        id_usuario = idUsuario;
         tablerosPropiosVM = new List<TableroPropioViewModel>(); 
         foreach (var tablero in tablerosPropios)
         {
@@ -25,4 +26,5 @@ public class ListarTableroViewModel{
     }
     public List<TableroPropioViewModel> TablerosPropiosVM { get => tablerosPropiosVM; }
     public List<TableroAsignadoViewModel> TablerosAsignadosVM { get => tablerosAsignadosVM; }
+    public int Id_usuario { get => id_usuario; }
 }

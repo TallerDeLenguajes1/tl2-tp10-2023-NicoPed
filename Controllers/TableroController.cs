@@ -60,7 +60,7 @@ public class TableroController : Controller
                 tablerosPropios = _repository.GetAllTablerosOfUser(id_usuario);
                 tablerosAsignados = _repository.GetAssignedTasksTableros(id_usuario);
                 usuarios = _usuarioRepository.GetAllUsuarios();
-                var tableroVM = new ListarTableroViewModel(tablerosPropios, tablerosAsignados, usuarios);
+                var tableroVM = new ListarTableroViewModel(tablerosPropios, tablerosAsignados, usuarios, id_usuario);
                 
                 return View(tableroVM);
         }
