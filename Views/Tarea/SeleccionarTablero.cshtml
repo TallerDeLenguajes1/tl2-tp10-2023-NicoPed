@@ -6,13 +6,22 @@
 @section Scripts{<partial name="_ValidationScriptsPartial"/>}
 
 <h1>@ViewData["Title"]</h1>
+<section class="centrado"> 
+
+
 <form asp-controller="Tarea" asp-action="SeleccionarTablero" method="post">
-    <select name="idTablero">
+    <div class="form-group">
+    
+    <select name="idTablero" class="form-select">
 
     @foreach(var tablero in Model){
                 <option value="@tablero.Id_tablero">@tablero.Nombre</option>
             }
     </select>
-    <input type="submit" class="btn btn-outline-primary" value="Seleccionar">
+    </div>
+    <div class="centrado">
+        <input type="submit" class="btn btn-outline-primary" value="Seleccionar">
+    </div>
 </form>
 
+</section>

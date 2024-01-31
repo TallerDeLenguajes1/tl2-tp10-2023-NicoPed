@@ -6,6 +6,8 @@
 @model tl2_tp10_2023_NicoPed.ViewModels.CrearUsuarioViewModel
 
 <h1>@ViewData["Title"]</h1>
+<section class="centrado"> 
+
 <form asp-controller="Usuario" asp-action="CrearUsuario">
     <div class="form-group">
         <label asp-for="@Model.Nombre_de_usuario"></label>
@@ -25,6 +27,9 @@
         </select>
         <span asp-validation-for="@Model.RolUsuario" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-outline-primary">Enviar</button>
+    <div class="centrado">
+        <button class="btn btn-outline-primary" type="submit">Enviar</button>
+    </div>
 </form>
 
+</section>

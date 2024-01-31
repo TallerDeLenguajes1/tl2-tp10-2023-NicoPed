@@ -6,6 +6,8 @@
 @section Scripts{<partial name="_ValidationScriptsPartial"/>}
 
 <h1>@ViewData["Title"]</h1>
+<section class="centrado"> 
+
 <form asp-controller="Tablero" asp-action="CrearTablero">
     <div class="form-group">
         <label asp-for="@Model.NombreUsuarioPropietario">Usuario Propietario</label>
@@ -26,6 +28,9 @@
         <span asp-validation-for="@Model.Descripcion" class="text-danger"></span>
     
     </div>
-    <button type="submit" class="btn btn-outline-primary">Enviar</button>
+    <div class="centrado">
+        <button class="btn btn-outline-primary" type="submit">Enviar</button>
+    </div>
 </form>
 
+</section>

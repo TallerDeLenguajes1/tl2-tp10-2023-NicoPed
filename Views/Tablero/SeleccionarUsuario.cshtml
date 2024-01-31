@@ -4,14 +4,22 @@
 
 @model tl2_tp10_2023_NicoPed.ViewModels.ListarUsuarioViewModel
 @section Scripts{<partial name="_ValidationScriptsPartial"/>}
-
 <h1>@ViewData["Title"]</h1>
+
+<section class="centrado">
+
 <form asp-controller="Tablero" asp-action="SeleccionarUsuario" method="post">
-    <select name="idUsuario">
+    <div class="form-group">
+
+    <select name="idUsuario" class="form-select">
     @foreach(var usuario in Model.ListarUsariosVM){
                 <option value="@usuario.Id_usuario">@usuario.Nombre_de_usuario</option>
             }
     </select>
+    </div>
+    <div class="centrado">
     <input type="submit" class="btn btn-outline-primary" value="Seleccionar">
+    </div>
 </form>
 
+</section>
