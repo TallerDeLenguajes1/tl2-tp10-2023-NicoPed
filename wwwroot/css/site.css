@@ -22,6 +22,10 @@ body {
 }
 html,
 
+main{
+  min-height: 70%;
+
+}
 body {
   height: 100%;
 }

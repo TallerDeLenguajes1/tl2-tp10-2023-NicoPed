@@ -29,7 +29,7 @@ public class EditarTableroViewModel
     public string? Nombre { get => nombre; set => nombre = value; }
     
     [Required(ErrorMessage = "Este campo es requerido.")]
-    [Display(Name = "Descripcion")] 
+    [Display(Name = "Descripción")] 
     public string? Descripcion { get => descripcion; set => descripcion = value; }
     
     [Required(ErrorMessage = "Este campo es requerido.")]

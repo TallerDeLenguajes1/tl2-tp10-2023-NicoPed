@@ -9,7 +9,7 @@ public class LoginViewModel
     private string? contraseniaUsuario;
     
     [Required(ErrorMessage = "Este campo es requerido")]
-    [Display(Name = "Nombre de usuario")]
+    [Display(Name = "Nombre De Usuario")]
     public string NombreUsuario { get => nombreUsuario; set => nombreUsuario = value; }
     
     [Required(ErrorMessage = "Este campo es requerido")]

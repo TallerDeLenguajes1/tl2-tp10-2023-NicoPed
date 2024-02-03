@@ -27,7 +27,7 @@ public class CrearTareaViewModel{
     [Display(Name = "Nombre")]
     public string? Nombre { get => nombre; set => nombre = value; }
     
-    [Display(Name = "Descripcion")]
+    [Display(Name = "Descripción")]
     public string? Descripcion { get => descripcion; set => descripcion = value; }
     
     [Display(Name = "Color")]

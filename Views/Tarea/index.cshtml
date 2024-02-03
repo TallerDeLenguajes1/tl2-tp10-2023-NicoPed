@@ -14,9 +14,9 @@
     <thead class="thead-dark">
         <tr>
             <th hidden>id_tarea</th>
-            <th>nombre</th>
-            <th>descripcion</th>
-            <th>color</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Color</th>
             <th>Estado Actual</th>
             <th>Acciones</th>
         </tr>
@@ -46,7 +46,7 @@
 </section>
 <div class="d-grid gap-2 col-6 mx-auto">
     <a class="btn btn-outline-success"  asp-area="" asp-controller="Tablero" asp-route-idUsuario = "@Model.ListarTareaVM[0].Id_usuario_asignado" asp-action="Index">Ir A Tableros</a> 
-    <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
+    <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir Al Inicio</a> 
 </div>
 @if (Context.Session.GetString("rol") == (Rol.Administrador).ToString()){
             <hr>

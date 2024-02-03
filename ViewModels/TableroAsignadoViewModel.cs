@@ -20,9 +20,9 @@ public class TableroAsignadoViewModel
     }
     
     [Required(ErrorMessage = "Este campo es requerido")]
-    [Display(Name = "Nombre del tablero")]
+    [Display(Name = "Nombre Del Tablero")]
     public string? Nombre { get => nombre; set => nombre = value; }
-    [Display(Name = "Descripción del tablero")]
+    [Display(Name = "Descripción Del Tablero")]
     public string? Descripcion { get => descripcion; set => descripcion = value; }
     public int Id_tablero { get => id_tablero; set => id_tablero = value; }
     public string? NombreUsuarioPropietario { get => nombreUsuarioPropietario; set => nombreUsuarioPropietario = value; }

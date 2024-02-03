@@ -22,9 +22,9 @@ public class CrearTableroViewModel
     }
     public int Id_usuario_propietario { get => id_usuario_propietario; set => id_usuario_propietario = value; }
     [Required(ErrorMessage = "Este campo es requeri6do")]
-    [Display(Name = "Nombre del tablero")]
+    [Display(Name = "Nombre Del Tablero")]
     public string? Nombre { get => nombre; set => nombre = value; }
-    [Display(Name = "Descripción del tablero")]
+    [Display(Name = "Descripción Del TSablero")]
     public string? Descripcion { get => descripcion; set => descripcion = value; }
     public string? NombreUsuarioPropietario { get => nombreUsuarioPropietario; }
     public int IdUsuarioPropietario { get => idUsuarioPropietario; }
