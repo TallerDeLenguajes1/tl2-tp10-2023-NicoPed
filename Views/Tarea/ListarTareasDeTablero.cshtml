@@ -9,15 +9,17 @@
 @if(Model.TareasAsignadas.Count == 0 && Model.TareasNoAsignadas.Count == 0){
     <h2>Este tablero NO tiene tareas</h2>
 }else{
-    <table class="table table-green">
-    <thead>
+<section class="centrado">
+
+<table class="table table-striped">
+    <thead class="thead-dark">
         <tr>
             <th hidden>id_tarea</th>
             <th>nombre</th>
             <th>descripcion</th>
             <th>color</th>
             <th>Estado Actual</th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -71,6 +73,7 @@
         }
     </tbody>
 </table>
+</section>
 }
 <div class="d-grid gap-2 col-6 mx-auto">
     @if(Model.EsPropietario){

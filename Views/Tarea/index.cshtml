@@ -8,15 +8,17 @@
 
 <h2>Lista De Tareas</h2>
 
-<table class="table table-green">
-    <thead>
+<section class="centrado">
+
+<table class="table table-striped">
+    <thead class="thead-dark">
         <tr>
             <th hidden>id_tarea</th>
             <th>nombre</th>
             <th>descripcion</th>
             <th>color</th>
             <th>Estado Actual</th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +30,6 @@
                 <td>@tarea.Descripcion</td>
                 <td style="background-color: @tarea.Color">@tarea.Color</td>
                 <td>@tarea.Estado</td>
-                <td>
                     <td>
                         <form asp-controller="Tarea" asp-action="ActualizarEstado" method="post">
                             <select name="estadoTarea" value ="@tarea.Estado" asp-items = "@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Tarea.estadoTarea>()">
@@ -37,11 +38,12 @@
                             <input type="submit" class="btn btn-outline-primary" value="Cambiar">
                         </form>
                     </td>
-                </td>
             </tr>
         }
     </tbody>
 </table>
+
+</section>
 <div class="d-grid gap-2 col-6 mx-auto">
     <a class="btn btn-outline-primary"  asp-area="" asp-controller="Tablero" asp-route-idUsuario = "@Model.ListarTareaVM[0].Id_usuario_asignado" asp-action="Index">Ir A Tableros</a> 
     <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 

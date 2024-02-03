@@ -61,3 +61,16 @@ input[type="submit"], button[type="submit"]{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+h2{
+  text-align: center;
+}
+.table, .table-responsive-sm{
+  width: 75%;
+}
+.table th, .table td{
+  text-align: center;
+}
+.thead-dark{
+  background-color: #72cf74;
+  color: whitesmoke;
+}

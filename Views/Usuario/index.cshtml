@@ -6,21 +6,20 @@
 
 <h2>Lista De Usuario</h2>
 
-<table class="table table-green">
-    <thead>
+<section class="centrado">
+
+<table class="table table-striped">
+    <thead class="thead-dark">
         <tr>
-            <th>id_usuario</th>
-            <th>nombre</th>
-            <th>rol</th>
-            <th></th>
+            <th>Nombre</th>
+            <th>Rol</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var usuario in Model)
         {
-            //Evitar que salga el mismo
             <tr>
-                <td>@usuario.Id_usuario</td>
                 <td>@usuario.Nombre_de_usuario</td>
                 <td>@usuario.RolUsuario</td>
                 <td>
@@ -56,6 +55,7 @@
         }
     </tbody>
 </table>
+</section>
 <div class="d-grid gap-2 col-6 mx-auto">
     <a class="btn btn-outline-primary" asp-area="" asp-controller="Usuario" asp-action="CrearUsuario" >Crear Usuario</a> 
     <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
