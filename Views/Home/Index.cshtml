@@ -7,20 +7,20 @@
     @if(string.IsNullOrEmpty(Context.Session.GetString("usuario")))
     {
             <h2 class="display-4">Inicie Sesión</h2>
-            <a class="btn btn-outline-primary"  asp-area="" asp-controller="Login" asp-action="Index">Iniciar sesión</a> 
+            <a class="btn btn-outline-success"  asp-area="" asp-controller="Login" asp-action="Index">Iniciar sesión</a> 
 
     }else{
 
             <h2 class="display-4"> @Context.Session.GetString("usuario")</h2>
             <div>
-            <a class="btn btn-outline-primary"  asp-area="" asp-controller="Tablero" asp-action="Index" asp-route-idUsuario = "@Context.Session.GetString("id")" >Mis Tableros</a> 
+            <a class="btn btn-outline-success"  asp-area="" asp-controller="Tablero" asp-action="Index" asp-route-idUsuario = "@Context.Session.GetString("id")" >Mis Tableros</a> 
             <a class="btn btn-outline-secondary"  asp-area="" asp-controller="Tarea" asp-action="Index" asp-route-idUsuario = "@Context.Session.GetString("id")" >Mis Tareas</a> 
             </div>
             //Aqui una imagen bonita supongo
         @if (Context.Session.GetString("rol") == (Rol.Administrador).ToString()){
             <div>
             <hr>
-            <a class="btn btn-outline-primary"  asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestión De Tablero</a> 
+            <a class="btn btn-outline-success"  asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestión De Tablero</a> 
             <a class="btn btn-outline-secondary"  asp-area="" asp-controller="Tarea" asp-action="GestionDeTarea">Gestión De Tarea</a> 
             <a class="btn btn-outline-info"  asp-area="" asp-controller="Usuario" asp-action="Index">Gestión De Usuario</a> 
             </div>

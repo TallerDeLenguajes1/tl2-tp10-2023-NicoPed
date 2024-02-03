@@ -30,7 +30,7 @@
                 <td>@tablero.Descripcion</td>
                 <td>@tablero.NombreUsuarioPropietario</td>
                 <td>
-                    <a asp-controller="Tarea" asp-action="CrearTarea" asp-route-idTablero = "@tablero.Id_tablero" class="btn btn-outline-primary">Añadir tarea
+                    <a asp-controller="Tarea" asp-action="CrearTarea" asp-route-idTablero = "@tablero.Id_tablero" class="btn btn-outline-success">Añadir tarea
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                         <path d="M0 0h16v16H0z" fill="none"/>
                         <path d="M8 1a.5.5 0 0 1 .5.5V7h5a.5.5 0 0 1 0 1H8v5a.5.5 0 0 1-1 0V8H2a.5.5 0 0 1 0-1h5V1.5A.5.5 0 0 1 8 1z"/>
@@ -64,12 +64,12 @@
 </section>
 }
 <div class="d-grid gap-2 col-6 mx-auto">
-    <a class="btn btn-outline-primary" asp-area="" asp-controller="Tablero" asp-action="SeleccionarUsuario" >Crear Tablero</a> 
+    <a class="btn btn-outline-success" asp-area="" asp-controller="Tablero" asp-action="SeleccionarUsuario" >Crear Tablero</a> 
     <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
 </div>
 <hr>
 <div class="d-grid gap-2 col-6 mx-auto">
-    <a class="btn btn-outline-primary"  asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestión De Tablero</a> 
+    <a class="btn btn-outline-success"  asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestión De Tablero</a> 
     <a class="btn btn-outline-secondary"  asp-area="" asp-controller="Tarea" asp-action="GestionDeTarea">Gestión De Tarea</a> 
     <a class="btn btn-outline-info"  asp-area="" asp-controller="Usuario" asp-action="Index">Gestión De Usuario</a> 
 </div>

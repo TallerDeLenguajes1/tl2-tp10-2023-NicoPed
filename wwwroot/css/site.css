@@ -74,3 +74,13 @@ h2{
   background-color: #72cf74;
   color: whitesmoke;
 }
+.btn-outline-success{
+  color: #53c15c;
+  border-color: #53c15c;
+}
+
+.btn-outline-success:focus, .btn-outline-success:hover{
+background-color: #53c15c;
+color: white;
+border-color: #53c15c;
+}

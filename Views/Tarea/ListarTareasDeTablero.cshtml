@@ -52,7 +52,7 @@
                             <select name="estadoTarea" value ="@tarea.Estado" asp-items = "@Html.GetEnumSelectList<tl2_tp10_2023_NicoPed.Tarea.estadoTarea>()">
                             </select>
                             <input hidden name="idTarea" value="@tarea.Id_tarea">
-                            <input type="submit" class="btn btn-outline-primary" value="Cambiar">
+                            <input type="submit" class="btn btn-outline-success" value="Cambiar">
                         </form>
                     </td>
                 }
@@ -77,7 +77,7 @@
 }
 <div class="d-grid gap-2 col-6 mx-auto">
     @if(Model.EsPropietario){
-    <a class="btn btn-outline-primary" asp-area="" asp-route-idTablero = "@Model.IdTablero" asp-controller="Tarea" asp-action="CrearTarea" >Crear Tarea</a> 
+    <a class="btn btn-outline-success" asp-area="" asp-route-idTablero = "@Model.IdTablero" asp-controller="Tarea" asp-action="CrearTarea" >Crear Tarea</a> 
     }
     
     <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index" >Ir al inicio</a> 
