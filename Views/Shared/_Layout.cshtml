@@ -38,13 +38,13 @@
                             </li>   
                             @if (Context.Session.GetString("rol") == (Rol.Administrador).ToString()){
                                 <li class="nav-item">
-                                    <a  class="nav-link text-white" asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestion de Tablero</a>
+                                    <a  class="nav-link text-white" asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestión de Tablero</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a  class="nav-link text-white" asp-area="" asp-controller="Tarea" asp-action="GestionDeTarea">Gestion de Tarea</a>
+                                    <a  class="nav-link text-white" asp-area="" asp-controller="Tarea" asp-action="GestionDeTarea">Gestión de Tarea</a>
                                 </li>
                                 <li class="nav-item">
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Gestion de Usuario</a>                            
+                                        <a class="nav-link text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Gestión de Usuario</a>                            
                                 </li>
                             } 
                         }
@@ -83,13 +83,13 @@
                 </li>   
                 @if (Context.Session.GetString("rol") == (Rol.Administrador).ToString()){
                     <li class="nav-item">
-                        <a  class="nav-link text-white" asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestion de Tablero</a>
+                        <a  class="nav-link text-white" asp-area="" asp-controller="Tablero" asp-action="GestionDeTablero">Gestión de Tablero</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link text-white" asp-area="" asp-controller="Tarea" asp-action="GestionDeTarea">Gestion de Tarea</a>
+                        <a  class="nav-link text-white" asp-area="" asp-controller="Tarea" asp-action="GestionDeTarea">Gestión de Tarea</a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Gestion de Usuario</a>                            
+                            <a class="nav-link text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Gestión de Usuario</a>                            
                     </li>
                 } 
             }

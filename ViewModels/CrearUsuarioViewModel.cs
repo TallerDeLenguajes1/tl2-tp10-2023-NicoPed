@@ -14,6 +14,7 @@ namespace tl2_tp10_2023_NicoPed.ViewModels
         public string? Nombre_de_usuario { get => nombre_de_usuario; set => nombre_de_usuario = value; }
         
         [Required(ErrorMessage = "Este campo es requerido.")]
+        [StringLength(16, MinimumLength = 8, ErrorMessage = "La contraseña debe tener entre 8 y 16 caracteres.")]
         [Display(Name = "Contraseña")]
         public string? Contrasenia { get => contrasenia; set => contrasenia = value; }
 

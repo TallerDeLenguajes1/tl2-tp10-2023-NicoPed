@@ -88,3 +88,6 @@ background-color: #53c15c;
 color: white;
 border-color: #53c15c;
 }
+main{
+  min-height: 100PX;
+}

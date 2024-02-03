@@ -8,7 +8,7 @@
 <h1>@ViewData["Title"]</h1>
 <section class="centrado"> 
 
-<form asp-controller="Usuario" asp-action="CrearUsuario">
+<form asp-controller="Usuario" asp-action="CrearUsuario" method="post">
     <div class="form-group">
         <label asp-for="@Model.Nombre_de_usuario"></label>
         <input asp-for="@Model.Nombre_de_usuario" class="form-control" />
@@ -17,7 +17,7 @@
     </div>
         <div class="form-group">
         <label asp-for="@Model.Contrasenia"></label>
-        <input type="password" asp-for="@Model.Contrasenia" class="form-control" />
+        <input asp-for="@Model.Contrasenia" class="form-control" />
         <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
     </div>
     <div class="form-group">

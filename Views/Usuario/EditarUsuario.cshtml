@@ -1,9 +1,13 @@
+@{ 
+    ViewData["Title"] = "Editar Usuario";
+}
+
 
 @model tl2_tp10_2023_NicoPed.ViewModels.EditarUsuarioViewModel
 @section Scripts{<partial name="_ValidationScriptsPartial"/>}
 <section class="centrado"> 
 
-<form asp-controller="Usuario" asp-action="EditarUsuario">
+<form asp-controller="Usuario" asp-action="EditarUsuario" autocomplete="off" method="post">
     <input hidden asp-for="@Model.Id_usuario">
     <div class="form-group">
         <label asp-for="@Model.Nombre_de_usuario"></label>
