@@ -216,8 +216,8 @@ public class TareaController : Controller
                 return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
             _repository.ChangeEstado(estadoTarea, idTarea);
-            return RedirectToRoute(new { controller = "Tarea", action = "Index"});     
-
+            var tarea = _repository.GetTareaById(idTarea);
+            return RedirectToRoute(new { controller = "Tarea", action = "Index", idUsuario = tarea.Id_usuario_asignado});
         }
         catch (System.Exception)
         {
@@ -275,7 +275,6 @@ public class TareaController : Controller
             return RedirectToAction("Error");
         }
     }
-    // SI NO FUNCIONA CREO QUE DEBERIA MANDAR UN VIEWMODEL SeleccionarTableroVM con el id y nombre nomás
     [HttpPost]
     public IActionResult SeleccionarTablero(int idTablero){
         try
@@ -290,8 +289,6 @@ public class TareaController : Controller
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
                 
             }   
-            // debo de ver como mando el id Tablero a crearTablero
-            // CrearTarea(idTablero);
             return RedirectToRoute(new { controller = "Tarea", action = "CrearTarea", idTablero = idTablero });
 
         }

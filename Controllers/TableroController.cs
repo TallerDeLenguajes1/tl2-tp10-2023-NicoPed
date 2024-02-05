@@ -108,12 +108,13 @@ public class TableroController : Controller
             }
             if (!ModelState.IsValid)
             {
-                return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+                return RedirectToRoute(new { controller = "Tablero", action = "Index", idUsuario = tablero.Id_usuario_propietario });         
             }
             Tablero newTablero = new Tablero(tablero);
             _repository.CreateTablero(newTablero);
             
-            return RedirectToAction("Index");
+            return RedirectToRoute(new { controller = "Tablero", action = "Index", idUsuario = newTablero.Id_usuario_propietario });     
+
         }
         catch (System.Exception ex)
         {
@@ -155,11 +156,12 @@ public class TableroController : Controller
             }
             if (!ModelState.IsValid)
             {
-            return RedirectToRoute(new { controller = "Tablero", action = "Index" });     
+            return RedirectToRoute(new { controller = "Tablero", action = "Index", idUsuario = tableroVW.Id_usuario_propietario });     
             }
             var tablero =  new Tablero (tableroVW);
             _repository.UpdateTablero(tablero);
-            return RedirectToAction("Index");
+            return RedirectToRoute(new { controller = "Tablero", action = "Index", idUsuario = tablero.Id_usuario_propietario });     
+
         }
         catch (System.Exception ex)
         {
@@ -175,10 +177,12 @@ public class TableroController : Controller
         {
             if (!estaLogueado())
             {
-            return RedirectToRoute(new { controller = "Login", action = "Index" });
+                return RedirectToRoute(new { controller = "Login", action = "Index" });
             }
+            var tablero = _repository.GetTableroById(idTablero); 
             _repository.RemoveTablero(idTablero);
-            return RedirectToAction("Index");
+            return RedirectToRoute(new { controller = "Tablero", action = "Index", idUsuario = tablero.Id_usuario_propietario });     
+
         }
         catch (System.Exception ex)
         {
